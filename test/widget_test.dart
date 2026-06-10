@@ -27,6 +27,25 @@ void main() {
     expect(find.text('Нужные двери: 0/2'), findsOneWidget);
   });
 
+  testWidgets('movement switches between doors before action', (WidgetTester tester) async {
+    await tester.pumpWidget(const MazeGameApp());
+
+    await tester.tap(find.text('Играть'));
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.text('Вправо'));
+    await tester.pump();
+
+    expect(find.text('Ты стоишь под дверью: Синяя.'), findsOneWidget);
+
+    await tester.tap(find.text('Действие'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Синий зал • 3 комн.'), findsOneWidget);
+    expect(find.text('Ты вошёл в дверь: Синяя.'), findsOneWidget);
+    expect(find.text('Нужные двери: 0/2'), findsOneWidget);
+  });
+
   testWidgets('levels screen lists level complexity by room count', (WidgetTester tester) async {
     await tester.pumpWidget(const MazeGameApp());
 

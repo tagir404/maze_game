@@ -407,7 +407,7 @@ class MainMenuScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 12),
                     Text(
-                      'Двигайся по комнате, выбирай цветные двери и найди правильную цепочку.',
+                      'Переключайся между дверями, стой под выбранной дверью и найди правильную цепочку.',
                       textAlign: TextAlign.center,
                       style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Colors.white70),
                     ),
@@ -554,7 +554,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             child: Padding(
               padding: EdgeInsets.all(18),
               child: Text(
-                'Управление в игре: кнопки движения находятся слева внизу, кнопка действия — справа внизу. Подойди к двери и нажми действие, чтобы войти.',
+                'Управление в игре: кнопки влево и вправо переключают персонажа строго между дверями. Нажми действие, чтобы войти в выбранную дверь.',
               ),
             ),
           ),
@@ -576,8 +576,8 @@ class GameScreen extends StatefulWidget {
 class _GameScreenState extends State<GameScreen> {
   late String roomId;
   final Set<String> openedRequiredDoors = <String>{};
-  double playerX = 0.5;
-  String message = 'Подойди к двери и нажми действие.';
+  int selectedDoorIndex = 0;
+  String message = 'Выбери дверь и нажми действие.';
 
   MazeRoom get room => widget.level.roomById(roomId);
 
@@ -587,17 +587,24 @@ class _GameScreenState extends State<GameScreen> {
     roomId = widget.level.startRoomId;
   }
 
-  void move(double direction) {
+  void move(int direction) {
+    if (room.doors.isEmpty) {
+      setState(() => message = 'В этой комнате нет дверей.');
+      return;
+    }
+
+    final nextIndex = (selectedDoorIndex + direction).clamp(0, room.doors.length - 1).toInt();
     setState(() {
-      playerX = (playerX + direction * 0.08).clamp(0.08, 0.92).toDouble();
-      message = 'Выбери дверь цветом и нажми действие.';
+      selectedDoorIndex = nextIndex;
+      final selectedDoor = room.doors[selectedDoorIndex];
+      message = 'Ты стоишь под дверью: ${selectedDoor.label}.';
     });
   }
 
   void useAction() {
-    final door = nearestDoor;
+    final door = selectedDoor;
     if (door == null) {
-      setState(() => message = 'Слишком далеко от двери. Подойди ближе.');
+      setState(() => message = 'В этой комнате нет дверей.');
       return;
     }
 
@@ -607,7 +614,7 @@ class _GameScreenState extends State<GameScreen> {
         openedRequiredDoors.add(door.id);
       }
       roomId = door.targetRoomId;
-      playerX = 0.5;
+      selectedDoorIndex = 0;
       message = isRequired ? 'Нужная дверь открыта: ${door.label}!' : 'Ты вошёл в дверь: ${door.label}.';
     });
 
@@ -616,21 +623,20 @@ class _GameScreenState extends State<GameScreen> {
     }
   }
 
-  MazeDoor? get nearestDoor {
+  MazeDoor? get selectedDoor {
     if (room.doors.isEmpty) {
       return null;
     }
-    MazeDoor? closest;
-    double closestDistance = 1;
-    for (var index = 0; index < room.doors.length; index++) {
-      final doorX = _doorPosition(index, room.doors.length);
-      final distance = (playerX - doorX).abs();
-      if (distance < closestDistance) {
-        closestDistance = distance;
-        closest = room.doors[index];
-      }
+    final safeIndex = selectedDoorIndex.clamp(0, room.doors.length - 1).toInt();
+    return room.doors[safeIndex];
+  }
+
+  double get playerX {
+    if (room.doors.isEmpty) {
+      return 0.5;
     }
-    return closestDistance <= 0.16 ? closest : null;
+    final safeIndex = selectedDoorIndex.clamp(0, room.doors.length - 1).toInt();
+    return _doorPosition(safeIndex, room.doors.length);
   }
 
   double _doorPosition(int index, int count) => (index + 1) / (count + 1);
