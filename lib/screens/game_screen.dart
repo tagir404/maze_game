@@ -129,8 +129,8 @@ class _GameScreenState extends State<GameScreen> {
                                 34,
                           ),
                         Positioned(
-                          left: constraints.maxWidth * playerX - 22,
-                          bottom: 74,
+                          left: constraints.maxWidth * playerX - 18,
+                          bottom: 0,
                           child: const Player(),
                         ),
                       ],

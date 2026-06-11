@@ -11,7 +11,7 @@ class Door extends StatelessWidget {
   Widget build(BuildContext context) {
     return Positioned(
       left: left,
-      top: 54,
+      bottom: 0,
       child: Column(
         children: [
           Container(
