@@ -19,7 +19,7 @@ class LevelsScreen extends StatelessWidget {
             elevation: 8,
             color: const Color(0xFF202642),
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(24),
+              borderRadius: BorderRadius.circular(18),
             ),
             child: ListTile(
               contentPadding: const EdgeInsets.all(18),

@@ -18,7 +18,7 @@ class MenuButton extends StatelessWidget {
       style: FilledButton.styleFrom(
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 18),
         textStyle: const TextStyle(fontSize: 20, fontWeight: FontWeight.w800),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(22)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
       ),
       icon: Icon(icon, size: 28),
       label: Text(label),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:maze_game/common/constants.dart';
 
 class Player extends StatelessWidget {
   const Player({super.key});
@@ -8,8 +9,8 @@ class Player extends StatelessWidget {
     return Column(
       children: [
         Container(
-          width: 36,
-          height: 36,
+          width: Constants.playerSize,
+          height: Constants.playerSize,
           decoration: const BoxDecoration(
             color: Color(0xFFFFD2A6),
             shape: BoxShape.circle,

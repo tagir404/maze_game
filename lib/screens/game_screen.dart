@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:maze_game/common/constants.dart';
 import 'package:maze_game/models/maze_door.dart';
 import 'package:maze_game/models/maze_level.dart';
 import 'package:maze_game/models/maze_room.dart';
@@ -126,10 +127,12 @@ class _GameScreenState extends State<GameScreen> {
                             left:
                                 constraints.maxWidth *
                                     _doorPosition(index, room.doors.length) -
-                                34,
+                                Constants.doorWidth / 2,
                           ),
                         Positioned(
-                          left: constraints.maxWidth * playerX - 18,
+                          left:
+                              constraints.maxWidth * playerX -
+                              Constants.playerSize / 2,
                           bottom: 0,
                           child: const Player(),
                         ),
