@@ -20,14 +20,6 @@ class Player extends StatelessWidget {
             size: 24,
           ),
         ),
-        Container(
-          width: 44,
-          height: 54,
-          decoration: BoxDecoration(
-            color: const Color(0xFF64D2FF),
-            borderRadius: BorderRadius.circular(16),
-          ),
-        ),
       ],
     );
   }

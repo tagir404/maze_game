@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:maze_game/main.dart';
 import 'package:maze_game/models/maze_door.dart';
 import 'package:maze_game/models/maze_level.dart';
 import 'package:maze_game/models/maze_room.dart';
+import 'package:maze_game/widgets/room_background.dart';
+import 'package:maze_game/widgets/control_button.dart';
 import 'package:maze_game/widgets/door.dart';
 import 'package:maze_game/widgets/player.dart';
 
@@ -117,19 +118,11 @@ class _GameScreenState extends State<GameScreen> {
                     return Stack(
                       children: [
                         Positioned.fill(
-                          child: CustomPaint(
-                            painter: RoomPainter(roomName: room.name),
-                          ),
+                          child: RoomBackground(roomName: room.name),
                         ),
                         for (var index = 0; index < room.doors.length; index++)
                           Door(
                             door: room.doors[index],
-                            isRequired: widget.level.requiredDoorIds.contains(
-                              room.doors[index].id,
-                            ),
-                            isOpened: openedRequiredDoors.contains(
-                              room.doors[index].id,
-                            ),
                             left:
                                 constraints.maxWidth *
                                     _doorPosition(index, room.doors.length) -
@@ -152,32 +145,15 @@ class _GameScreenState extends State<GameScreen> {
                 children: [
                   ControlButton(
                     icon: Icons.keyboard_arrow_left_rounded,
-                    label: 'Влево',
                     onPressed: () => move(-1),
                   ),
                   const SizedBox(width: 14),
                   ControlButton(
                     icon: Icons.keyboard_arrow_right_rounded,
-                    label: 'Вправо',
                     onPressed: () => move(1),
                   ),
                   const Spacer(),
-                  FilledButton.icon(
-                    style: FilledButton.styleFrom(
-                      backgroundColor: const Color(0xFFF3BF45),
-                      foregroundColor: const Color(0xFF151515),
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 22,
-                        vertical: 18,
-                      ),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(22),
-                      ),
-                    ),
-                    onPressed: useAction,
-                    icon: const Icon(Icons.touch_app_rounded),
-                    label: const Text('Действие'),
-                  ),
+                  ControlButton(icon: Icons.login, onPressed: useAction),
                 ],
               ),
             ),

@@ -36,20 +36,12 @@ class MainMenuScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 18),
                     Text(
-                      'Лабиринт дверей',
+                      'Лабиринт',
                       textAlign: TextAlign.center,
                       style: Theme.of(context).textTheme.displaySmall?.copyWith(
                         fontWeight: FontWeight.w900,
                         letterSpacing: 1.2,
                       ),
-                    ),
-                    const SizedBox(height: 12),
-                    Text(
-                      'Переключайся между дверями, стой под выбранной дверью и найди правильную цепочку.',
-                      textAlign: TextAlign.center,
-                      style: Theme.of(
-                        context,
-                      ).textTheme.bodyLarge?.copyWith(color: Colors.white70),
                     ),
                     const SizedBox(height: 42),
                     MenuButton(

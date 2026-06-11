@@ -2,17 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:maze_game/models/maze_door.dart';
 
 class Door extends StatelessWidget {
-  const Door({
-    required this.door,
-    required this.isRequired,
-    required this.isOpened,
-    required this.left,
-    super.key,
-  });
+  const Door({required this.door, required this.left, super.key});
 
   final MazeDoor door;
-  final bool isRequired;
-  final bool isOpened;
   final double left;
 
   @override
@@ -42,21 +34,7 @@ class Door extends StatelessWidget {
                 ),
               ],
             ),
-            child: Icon(
-              isOpened ? Icons.check_circle_rounded : Icons.circle,
-              color: Colors.white.withValues(alpha: 0.86),
-            ),
           ),
-          const SizedBox(height: 8),
-          Text(door.label, style: const TextStyle(fontWeight: FontWeight.w700)),
-          if (isRequired)
-            Text(
-              isOpened ? 'открыта' : 'нужная',
-              style: TextStyle(
-                color: isOpened ? Colors.greenAccent : Colors.amberAccent,
-                fontSize: 12,
-              ),
-            ),
         ],
       ),
     );
