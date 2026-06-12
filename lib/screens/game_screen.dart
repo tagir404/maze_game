@@ -3,6 +3,7 @@ import 'package:maze_game/common/constants.dart';
 import 'package:maze_game/models/maze_door.dart';
 import 'package:maze_game/models/maze_level.dart';
 import 'package:maze_game/models/maze_room.dart';
+import 'package:maze_game/services/sound_effects.dart';
 import 'package:maze_game/widgets/room_background.dart';
 import 'package:maze_game/widgets/control_button.dart';
 import 'package:maze_game/widgets/door.dart';
@@ -34,6 +35,11 @@ class _GameScreenState extends State<GameScreen> {
     final nextIndex = (selectedDoorIndex + direction)
         .clamp(0, room.doors.length - 1)
         .toInt();
+    if (nextIndex == selectedDoorIndex) {
+      return;
+    }
+
+    SoundEffects.playDoorSwitch();
     setState(() {
       selectedDoorIndex = nextIndex;
     });
@@ -46,6 +52,7 @@ class _GameScreenState extends State<GameScreen> {
     }
 
     final isRequired = widget.level.requiredDoorIds.contains(door.id);
+    SoundEffects.playRoomEntry();
     setState(() {
       if (isRequired) {
         openedRequiredDoors.add(door.id);
