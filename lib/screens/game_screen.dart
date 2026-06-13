@@ -120,7 +120,7 @@ class _GameScreenState extends State<GameScreen> {
           children: [
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.all(16),
+                padding: const EdgeInsets.symmetric(horizontal: 18),
                 child: LayoutBuilder(
                   builder: (context, constraints) {
                     return Stack(
@@ -150,7 +150,7 @@ class _GameScreenState extends State<GameScreen> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(18, 6, 18, 20),
+              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 18),
               child: Row(
                 children: [
                   ControlButton(

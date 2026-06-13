@@ -6,7 +6,6 @@ import 'package:maze_game/models/maze_room.dart';
 const List<MazeLevel> levels = [
   MazeLevel(
     title: 'Уровень 1: Три двери',
-    description: 'Обучающий лабиринт из 3 комнат.',
     startRoomId: 'hall',
     requiredDoorIds: {'hall_red', 'storage_green'},
     rooms: [
@@ -62,7 +61,6 @@ const List<MazeLevel> levels = [
   ),
   MazeLevel(
     title: 'Уровень 2: Цветная петля',
-    description: '5 комнат и несколько обманных переходов.',
     startRoomId: 'square',
     requiredDoorIds: {'square_green', 'garden_red', 'tower_yellow'},
     rooms: [
@@ -160,7 +158,6 @@ const List<MazeLevel> levels = [
   ),
   MazeLevel(
     title: 'Уровень 3: Большой лабиринт',
-    description: '7 комнат — больше комнат, выше сложность.',
     startRoomId: 'atrium',
     requiredDoorIds: {
       'atrium_red',

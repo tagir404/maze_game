@@ -16,11 +16,11 @@ class MenuButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return FilledButton.icon(
       style: FilledButton.styleFrom(
-        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 18),
-        textStyle: const TextStyle(fontSize: 20, fontWeight: FontWeight.w800),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+        textStyle: const TextStyle(fontSize: 20),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
       ),
-      icon: Icon(icon, size: 28),
+      icon: Icon(icon, size: 24),
       label: Text(label),
       onPressed: onPressed,
     );

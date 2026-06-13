@@ -9,39 +9,35 @@ class LevelsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Уровни')),
-      body: ListView.separated(
-        padding: const EdgeInsets.all(20),
+      body: GridView.builder(
+        padding: const EdgeInsets.all(16),
         itemCount: levels.length,
-        separatorBuilder: (_, _) => const SizedBox(height: 14),
+        gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+          maxCrossAxisExtent: 100,
+          mainAxisSpacing: 12,
+          crossAxisSpacing: 12,
+          childAspectRatio: 1,
+        ),
         itemBuilder: (context, index) {
           final level = levels[index];
-          return Card(
-            elevation: 8,
-            color: const Color(0xFF202642),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(18),
+
+          return InkWell(
+            borderRadius: BorderRadius.circular(16),
+            onTap: () => Navigator.of(context).push(
+              MaterialPageRoute<void>(builder: (_) => GameScreen(level: level)),
             ),
-            child: ListTile(
-              contentPadding: const EdgeInsets.all(18),
-              leading: CircleAvatar(
-                backgroundColor: Theme.of(context).colorScheme.primary,
-                child: Text('${index + 1}'),
+            child: Container(
+              decoration: BoxDecoration(
+                color: const Color(0xFF202642),
+                borderRadius: BorderRadius.circular(16),
               ),
-              title: Text(
-                level.title,
-                style: const TextStyle(fontWeight: FontWeight.w800),
-              ),
-              subtitle: Padding(
-                padding: const EdgeInsets.only(top: 6),
+              child: Center(
                 child: Text(
-                  '${level.description}\nКомнат: ${level.rooms.length}',
-                ),
-              ),
-              isThreeLine: true,
-              trailing: const Icon(Icons.chevron_right_rounded),
-              onTap: () => Navigator.of(context).push(
-                MaterialPageRoute<void>(
-                  builder: (_) => GameScreen(level: level),
+                  '${index + 1}',
+                  style: const TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.w800,
+                  ),
                 ),
               ),
             ),
