@@ -19,8 +19,8 @@ class GameScreen extends StatefulWidget {
 }
 
 class _GameScreenState extends State<GameScreen> {
-  late String roomId;
-  final Set<String> openedRequiredDoors = <String>{};
+  late int roomId;
+  final Set<int> openedRequiredDoors = <int>{};
   int selectedDoorIndex = 0;
 
   MazeRoom get room => widget.level.roomById(roomId);
