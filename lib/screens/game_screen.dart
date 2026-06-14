@@ -98,10 +98,6 @@ class _GameScreenState extends State<GameScreen> {
           'Ты нашёл все нужные двери в уровне «${widget.level.title}». Комнат: ${widget.level.rooms.length}.',
         ),
         actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: const Text('Остаться'),
-          ),
           FilledButton(
             onPressed: () =>
                 Navigator.of(context).popUntil((route) => route.isFirst),
@@ -126,9 +122,7 @@ class _GameScreenState extends State<GameScreen> {
                   builder: (context, constraints) {
                     return Stack(
                       children: [
-                        Positioned.fill(
-                          child: RoomBackground(roomName: room.name),
-                        ),
+                        Positioned.fill(child: const RoomBackground()),
                         for (var index = 0; index < room.doors.length; index++)
                           Door(
                             door: room.doors[index],

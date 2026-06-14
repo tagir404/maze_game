@@ -37,13 +37,6 @@ class Door extends StatelessWidget {
                   width: 3,
                 ),
               ),
-              boxShadow: [
-                BoxShadow(
-                  color: door.color.withValues(alpha: 0.45),
-                  blurRadius: 18,
-                  spreadRadius: 2,
-                ),
-              ],
             ),
           ),
         ],

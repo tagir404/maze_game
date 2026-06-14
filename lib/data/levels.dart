@@ -5,13 +5,12 @@ import 'package:maze_game/models/maze_room.dart';
 
 const List<MazeLevel> levels = [
   MazeLevel(
-    title: 'Уровень 1: Три двери',
+    title: 'Уровень 1',
     startRoomId: 1,
-    requiredDoorIds: {101, 201},
+    requiredDoorIds: {101, 201, 301},
     rooms: [
       MazeRoom(
         id: 1,
-        name: 'Синий зал',
         doors: [
           MazeDoor(
             id: 101,
@@ -29,7 +28,6 @@ const List<MazeLevel> levels = [
       ),
       MazeRoom(
         id: 2,
-        name: 'Кладовая',
         doors: [
           MazeDoor(
             id: 201,
@@ -47,26 +45,25 @@ const List<MazeLevel> levels = [
       ),
       MazeRoom(
         id: 3,
-        name: 'Комната выхода',
         doors: [
           MazeDoor(
             id: 301,
             label: 'Жёлтая',
             color: Color(0xFFF3BF45),
-            targetRoomId: 1,
+            targetRoomId: 0,
           ),
         ],
       ),
+      MazeRoom(id: 0, doors: []),
     ],
   ),
   MazeLevel(
-    title: 'Уровень 2: Цветная петля',
+    title: 'Уровень 2',
     startRoomId: 1,
     requiredDoorIds: {101, 201, 301},
     rooms: [
       MazeRoom(
         id: 1,
-        name: 'Площадь',
         doors: [
           MazeDoor(
             id: 101,
@@ -90,7 +87,6 @@ const List<MazeLevel> levels = [
       ),
       MazeRoom(
         id: 2,
-        name: 'Сад',
         doors: [
           MazeDoor(
             id: 201,
@@ -108,7 +104,6 @@ const List<MazeLevel> levels = [
       ),
       MazeRoom(
         id: 3,
-        name: 'Башня',
         doors: [
           MazeDoor(
             id: 301,
@@ -126,7 +121,6 @@ const List<MazeLevel> levels = [
       ),
       MazeRoom(
         id: 4,
-        name: 'Подвал',
         doors: [
           MazeDoor(
             id: 401,
@@ -144,7 +138,6 @@ const List<MazeLevel> levels = [
       ),
       MazeRoom(
         id: 5,
-        name: 'Тихий выход',
         doors: [
           MazeDoor(
             id: 501,
@@ -157,13 +150,12 @@ const List<MazeLevel> levels = [
     ],
   ),
   MazeLevel(
-    title: 'Уровень 3: Большой лабиринт',
+    title: 'Уровень 3',
     startRoomId: 1,
     requiredDoorIds: {101, 201, 301, 401},
     rooms: [
       MazeRoom(
         id: 1,
-        name: 'Атриум',
         doors: [
           MazeDoor(
             id: 101,
@@ -181,7 +173,6 @@ const List<MazeLevel> levels = [
       ),
       MazeRoom(
         id: 2,
-        name: 'Библиотека',
         doors: [
           MazeDoor(
             id: 201,
@@ -205,7 +196,6 @@ const List<MazeLevel> levels = [
       ),
       MazeRoom(
         id: 3,
-        name: 'Мост',
         doors: [
           MazeDoor(
             id: 301,
@@ -223,7 +213,6 @@ const List<MazeLevel> levels = [
       ),
       MazeRoom(
         id: 4,
-        name: 'Кузница',
         doors: [
           MazeDoor(
             id: 401,
@@ -241,7 +230,6 @@ const List<MazeLevel> levels = [
       ),
       MazeRoom(
         id: 5,
-        name: 'Обсерватория',
         doors: [
           MazeDoor(
             id: 501,
@@ -253,7 +241,6 @@ const List<MazeLevel> levels = [
       ),
       MazeRoom(
         id: 6,
-        name: 'Хранилище',
         doors: [
           MazeDoor(
             id: 601,
@@ -271,7 +258,6 @@ const List<MazeLevel> levels = [
       ),
       MazeRoom(
         id: 7,
-        name: 'Святилище',
         doors: [
           MazeDoor(
             id: 701,

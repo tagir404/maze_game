@@ -6,22 +6,63 @@ class Player extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = Constants.playerSize;
+
     return Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
         Container(
-          width: Constants.playerSize,
-          height: Constants.playerSize,
-          decoration: const BoxDecoration(
+          width: size,
+          height: size,
+          decoration: BoxDecoration(
             color: Color(0xFFFFD2A6),
-            shape: BoxShape.circle,
+            borderRadius: BorderRadius.circular(8),
           ),
-          child: const Icon(
-            Icons.face_rounded,
-            color: Color(0xFF4A2B22),
-            size: 24,
+          child: const Stack(
+            children: [
+              Positioned(left: 8, top: 10, child: _Eye()),
+              Positioned(right: 8, top: 10, child: _Eye()),
+            ],
           ),
         ),
+
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: const [_Leg(), SizedBox(width: 6), _Leg()],
+        ),
       ],
+    );
+  }
+}
+
+class _Eye extends StatelessWidget {
+  const _Eye();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 6,
+      height: 6,
+      decoration: const BoxDecoration(
+        color: Colors.black,
+        shape: BoxShape.circle,
+      ),
+    );
+  }
+}
+
+class _Leg extends StatelessWidget {
+  const _Leg();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 6,
+      height: 8,
+      decoration: const BoxDecoration(
+        color: Colors.brown,
+        borderRadius: BorderRadius.all(Radius.circular(2)),
+      ),
     );
   }
 }
