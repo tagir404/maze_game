@@ -8,8 +8,8 @@ class MazeDoor {
     required this.targetRoomId,
   });
 
-  final String id;
+  final int id;
   final String label;
   final Color color;
-  final String targetRoomId;
+  final int targetRoomId;
 }

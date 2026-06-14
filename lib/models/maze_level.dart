@@ -10,8 +10,8 @@ class MazeLevel {
 
   final String title;
   final List<MazeRoom> rooms;
-  final String startRoomId;
-  final Set<String> requiredDoorIds;
+  final int startRoomId;
+  final Set<int> requiredDoorIds;
 
-  MazeRoom roomById(String id) => rooms.firstWhere((room) => room.id == id);
+  MazeRoom roomById(int id) => rooms.firstWhere((room) => room.id == id);
 }
