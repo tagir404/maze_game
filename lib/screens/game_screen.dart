@@ -20,7 +20,6 @@ class GameScreen extends StatefulWidget {
 
 class _GameScreenState extends State<GameScreen> {
   late int roomId;
-  final Set<int> openedRequiredDoors = <int>{};
   int selectedDoorIndex = 0;
 
   MazeRoom get room => widget.level.roomById(roomId);
@@ -50,19 +49,14 @@ class _GameScreenState extends State<GameScreen> {
       return;
     }
 
-    final isRequired = widget.level.requiredDoorIds.contains(door.id);
-
     audioService.playDoorOpen();
 
     setState(() {
-      if (isRequired) {
-        openedRequiredDoors.add(door.id);
-      }
       roomId = door.targetRoomId;
       selectedDoorIndex = 0;
     });
 
-    if (openedRequiredDoors.length == widget.level.requiredDoorIds.length) {
+    if (room.isExit) {
       Future<void>.delayed(const Duration(milliseconds: 250), _showWinDialog);
     }
   }
@@ -95,7 +89,7 @@ class _GameScreenState extends State<GameScreen> {
       builder: (context) => AlertDialog(
         title: const Text('Уровень пройден!'),
         content: Text(
-          'Ты нашёл все нужные двери в уровне «${widget.level.title}». Комнат: ${widget.level.rooms.length}.',
+          'Ты нашёл выход из уровня «${widget.level.title}». Комнат: ${widget.level.rooms.length}.',
         ),
         actions: [
           FilledButton(
