@@ -49,7 +49,8 @@ class MainMenuScreen extends StatelessWidget {
                       label: 'Играть',
                       onPressed: () => Navigator.of(context).push(
                         MaterialPageRoute<void>(
-                          builder: (_) => GameScreen(level: levels.first),
+                          builder: (_) =>
+                              GameScreen(level: levels.first, levelId: 1),
                         ),
                       ),
                     ),

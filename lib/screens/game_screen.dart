@@ -10,9 +10,10 @@ import 'package:maze_game/widgets/door.dart';
 import 'package:maze_game/widgets/player.dart';
 
 class GameScreen extends StatefulWidget {
-  const GameScreen({required this.level, super.key});
+  const GameScreen({required this.level, required this.levelId, super.key});
 
   final MazeLevel level;
+  final int levelId;
 
   @override
   State<GameScreen> createState() => _GameScreenState();
@@ -89,7 +90,7 @@ class _GameScreenState extends State<GameScreen> {
       builder: (context) => AlertDialog(
         title: const Text('Уровень пройден!'),
         content: Text(
-          'Ты нашёл выход из уровня «${widget.level.title}». Комнат: ${widget.level.rooms.length}.',
+          'Ты нашёл выход из уровня «${widget.levelId}». Комнат: ${widget.level.rooms.length}.',
         ),
         actions: [
           FilledButton(
@@ -105,7 +106,7 @@ class _GameScreenState extends State<GameScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(widget.level.title), actions: []),
+      appBar: AppBar(title: Text('Уровень ${widget.levelId}'), actions: []),
       body: SafeArea(
         child: Column(
           children: [
