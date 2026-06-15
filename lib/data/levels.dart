@@ -7,7 +7,6 @@ const List<MazeLevel> levels = [
   MazeLevel(
     title: 'Уровень 1',
     startRoomId: 1,
-    requiredDoorIds: {101, 201, 301},
     rooms: [
       MazeRoom(
         id: 1,
@@ -60,7 +59,6 @@ const List<MazeLevel> levels = [
   MazeLevel(
     title: 'Уровень 2',
     startRoomId: 1,
-    requiredDoorIds: {101, 201, 301},
     rooms: [
       MazeRoom(
         id: 1,
@@ -109,7 +107,7 @@ const List<MazeLevel> levels = [
             id: 301,
             label: 'Жёлтая',
             color: Color(0xFFF3BF45),
-            targetRoomId: 5,
+            targetRoomId: 0,
           ),
           MazeDoor(
             id: 302,
@@ -136,6 +134,7 @@ const List<MazeLevel> levels = [
           ),
         ],
       ),
+      MazeRoom(id: 0, doors: []),
       MazeRoom(
         id: 5,
         doors: [
@@ -152,7 +151,6 @@ const List<MazeLevel> levels = [
   MazeLevel(
     title: 'Уровень 3',
     startRoomId: 1,
-    requiredDoorIds: {101, 201, 301, 401},
     rooms: [
       MazeRoom(
         id: 1,
@@ -218,7 +216,7 @@ const List<MazeLevel> levels = [
             id: 401,
             label: 'Синяя',
             color: Color(0xFF3C7BFF),
-            targetRoomId: 7,
+            targetRoomId: 0,
           ),
           MazeDoor(
             id: 402,
@@ -256,6 +254,7 @@ const List<MazeLevel> levels = [
           ),
         ],
       ),
+      MazeRoom(id: 0, doors: []),
       MazeRoom(
         id: 7,
         doors: [
