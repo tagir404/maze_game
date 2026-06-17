@@ -25,7 +25,7 @@ Future<void> showWinDialog(
           onPressed: () => Navigator.of(context).pushReplacement(
             MaterialPageRoute<void>(
               builder: (_) => GameScreen(
-                level: levels[levelIndex + 1],
+                level: levels[levelIndex],
                 levelIndex: levelIndex + 1,
               ),
             ),

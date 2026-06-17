@@ -6,6 +6,8 @@ import 'package:maze_game/models/maze_door.dart';
 import 'package:maze_game/models/maze_level.dart';
 import 'package:maze_game/models/maze_room.dart';
 import 'package:maze_game/services/audio_service.dart';
+import 'package:maze_game/services/wallet_service.dart';
+import 'package:maze_game/widgets/coins_display.dart';
 import 'package:maze_game/widgets/room_background.dart';
 import 'package:maze_game/widgets/control_button.dart';
 import 'package:maze_game/widgets/door.dart';
@@ -95,6 +97,15 @@ class _GameScreenState extends State<GameScreen> {
       appBar: AppBar(
         title: Text('Уровень ${widget.levelIndex}'),
         actions: [
+          AnimatedBuilder(
+            animation: walletService,
+            builder: (context, _) => Center(
+              child: Padding(
+                padding: const EdgeInsets.only(right: 4),
+                child: CoinsDisplay(quantity: walletService.coins),
+              ),
+            ),
+          ),
           IconButton(
             onPressed: () async {
               final result = await showHintDialog(context);
