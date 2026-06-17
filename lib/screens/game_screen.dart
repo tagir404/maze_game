@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:maze_game/common/constants.dart';
+import 'package:maze_game/dialogs/hint_dialog.dart';
+import 'package:maze_game/logic/maze_path_finder.dart';
 import 'package:maze_game/models/maze_door.dart';
 import 'package:maze_game/models/maze_level.dart';
 import 'package:maze_game/models/maze_room.dart';
@@ -8,12 +10,13 @@ import 'package:maze_game/widgets/room_background.dart';
 import 'package:maze_game/widgets/control_button.dart';
 import 'package:maze_game/widgets/door.dart';
 import 'package:maze_game/widgets/player.dart';
+import 'package:maze_game/dialogs/win_dialog.dart';
 
 class GameScreen extends StatefulWidget {
-  const GameScreen({required this.level, required this.levelId, super.key});
+  const GameScreen({required this.level, required this.levelIndex, super.key});
 
   final MazeLevel level;
-  final int levelId;
+  final int levelIndex;
 
   @override
   State<GameScreen> createState() => _GameScreenState();
@@ -21,6 +24,7 @@ class GameScreen extends StatefulWidget {
 
 class _GameScreenState extends State<GameScreen> {
   late int roomId;
+  MazeDoor? hintDoor;
   int selectedDoorIndex = 0;
 
   MazeRoom get room => widget.level.roomById(roomId);
@@ -46,26 +50,31 @@ class _GameScreenState extends State<GameScreen> {
 
   void useAction() {
     final door = selectedDoor;
-    if (door == null) {
-      return;
-    }
+    if (door == null) return;
 
     audioService.playDoorOpen();
 
     setState(() {
       roomId = door.targetRoomId;
       selectedDoorIndex = 0;
+      hintDoor = null;
     });
 
     if (room.isExit) {
-      Future<void>.delayed(const Duration(milliseconds: 250), _showWinDialog);
+      Future<void>.delayed(const Duration(milliseconds: 250), () {
+        if (!mounted) return;
+        showWinDialog(
+          context,
+          levelIndex: widget.levelIndex,
+          roomsCount: widget.level.rooms.length,
+        );
+      });
     }
   }
 
   MazeDoor? get selectedDoor {
-    if (room.doors.isEmpty) {
-      return null;
-    }
+    if (room.doors.isEmpty) return null;
+
     final safeIndex = selectedDoorIndex.clamp(0, room.doors.length - 1).toInt();
     return room.doors[safeIndex];
   }
@@ -80,33 +89,30 @@ class _GameScreenState extends State<GameScreen> {
 
   double _doorPosition(int index, int count) => (index + 1) / (count + 1);
 
-  void _showWinDialog() {
-    if (!mounted) {
-      return;
-    }
-    showDialog<void>(
-      context: context,
-      barrierDismissible: false,
-      builder: (context) => AlertDialog(
-        title: const Text('Уровень пройден!'),
-        content: Text(
-          'Ты нашёл выход из уровня «${widget.levelId}». Комнат: ${widget.level.rooms.length}.',
-        ),
-        actions: [
-          FilledButton(
-            onPressed: () =>
-                Navigator.of(context).popUntil((route) => route.isFirst),
-            child: const Text('В меню'),
-          ),
-        ],
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Уровень ${widget.levelId}'), actions: []),
+      appBar: AppBar(
+        title: Text('Уровень ${widget.levelIndex}'),
+        actions: [
+          IconButton(
+            onPressed: () async {
+              final result = await showHintDialog(context);
+
+              if (result == true) {
+                setState(() {
+                  hintDoor = MazePathFinder.findHintDoor(
+                    level: widget.level,
+                    currentRoomId: roomId,
+                  );
+                });
+              }
+            },
+            icon: Icon(Icons.lightbulb),
+          ),
+        ],
+        actionsPadding: EdgeInsets.only(right: 8),
+      ),
       body: SafeArea(
         child: Column(
           children: [
@@ -121,6 +127,7 @@ class _GameScreenState extends State<GameScreen> {
                         for (var index = 0; index < room.doors.length; index++)
                           Door(
                             door: room.doors[index],
+                            isHint: room.doors[index] == hintDoor,
                             left:
                                 constraints.maxWidth *
                                     _doorPosition(index, room.doors.length) -

@@ -25,7 +25,7 @@ class LevelsScreen extends StatelessWidget {
             borderRadius: BorderRadius.circular(16),
             onTap: () => Navigator.of(context).push(
               MaterialPageRoute<void>(
-                builder: (_) => GameScreen(level: level, levelId: index + 1),
+                builder: (_) => GameScreen(level: level, levelIndex: index + 1),
               ),
             ),
             child: Container(
