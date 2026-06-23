@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:maze_game/core/app_dependencies.dart';
 import 'package:maze_game/data/levels.dart';
 import 'package:maze_game/screens/game_screen.dart';
 
@@ -7,6 +8,9 @@ class LevelsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final progressService = AppDependencies.of(context).progressService;
+    final unlockedLevel = progressService.getUnlockedLevel();
+
     return Scaffold(
       appBar: AppBar(title: const Text('Уровни')),
       body: GridView.builder(
@@ -20,28 +24,46 @@ class LevelsScreen extends StatelessWidget {
         ),
         itemBuilder: (context, index) {
           final level = levels[index];
+          final levelNumber = index + 1;
+          final isUnlocked = levelNumber <= unlockedLevel;
 
           return InkWell(
             borderRadius: BorderRadius.circular(16),
-            onTap: () => Navigator.of(context).push(
-              MaterialPageRoute<void>(
-                builder: (_) => GameScreen(level: level, levelIndex: index + 1),
-              ),
-            ),
-            child: Container(
-              decoration: BoxDecoration(
-                color: const Color(0xFF202642),
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: Center(
-                child: Text(
-                  '${index + 1}',
-                  style: const TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.w800,
+            onTap: () => {
+              if (isUnlocked)
+                Navigator.of(context).push(
+                  MaterialPageRoute<void>(
+                    builder: (_) =>
+                        GameScreen(level: level, levelIndex: index + 1),
                   ),
                 ),
-              ),
+            },
+            child: Stack(
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    color: isUnlocked
+                        ? const Color(0xFF202642)
+                        : const Color(0xFF2A2A2A),
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: Center(
+                    child: Text(
+                      '${index + 1}',
+                      style: const TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.w800,
+                      ),
+                    ),
+                  ),
+                ),
+                if (!isUnlocked)
+                  Positioned(
+                    right: 8,
+                    top: 8,
+                    child: Icon(Icons.lock, size: 16),
+                  ),
+              ],
             ),
           );
         },

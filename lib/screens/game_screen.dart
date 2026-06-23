@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:maze_game/common/constants.dart';
+import 'package:maze_game/core/app_dependencies.dart';
 import 'package:maze_game/dialogs/hint_dialog.dart';
 import 'package:maze_game/logic/maze_path_finder.dart';
 import 'package:maze_game/models/maze_door.dart';
@@ -50,7 +51,7 @@ class _GameScreenState extends State<GameScreen> {
     });
   }
 
-  void useAction() {
+  void useAction() async {
     final door = selectedDoor;
     if (door == null) return;
 
@@ -62,16 +63,7 @@ class _GameScreenState extends State<GameScreen> {
       hintDoor = null;
     });
 
-    if (room.isExit) {
-      Future<void>.delayed(const Duration(milliseconds: 250), () {
-        if (!mounted) return;
-        showWinDialog(
-          context,
-          levelIndex: widget.levelIndex,
-          roomsCount: widget.level.rooms.length,
-        );
-      });
-    }
+    if (room.isExit) _handleWin();
   }
 
   MazeDoor? get selectedDoor {
@@ -90,6 +82,22 @@ class _GameScreenState extends State<GameScreen> {
   }
 
   double _doorPosition(int index, int count) => (index + 1) / (count + 1);
+
+  Future<void> _handleWin() async {
+    final progressService = AppDependencies.of(context).progressService;
+
+    await progressService.unlockNextLevel(widget.levelIndex);
+
+    await Future.delayed(const Duration(milliseconds: 250));
+
+    if (!mounted) return;
+
+    showWinDialog(
+      context,
+      levelIndex: widget.levelIndex,
+      roomsCount: widget.level.rooms.length,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
