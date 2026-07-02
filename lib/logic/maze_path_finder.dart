@@ -18,9 +18,7 @@ class MazePathFinder {
 
       final currentRoom = level.roomById(currentRoomId);
 
-      if (currentRoom.isExit) {
-        return path;
-      }
+      if (currentRoom.isExit) return path;
 
       for (final door in currentRoom.doors) {
         final next = door.targetRoomId;
@@ -47,9 +45,7 @@ class MazePathFinder {
     final room = level.roomById(currentRoomId);
 
     for (final door in room.doors) {
-      if (door.targetRoomId == nextRoomId) {
-        return door;
-      }
+      if (door.targetRoomId == nextRoomId) return door;
     }
 
     return null;

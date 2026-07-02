@@ -26,8 +26,8 @@ class GameScreen extends StatefulWidget {
 }
 
 class _GameScreenState extends State<GameScreen> {
-  late int roomId;
   MazeDoor? hintDoor;
+  int roomId = 1;
   int selectedDoorIndex = 0;
 
   MazeRoom get room => widget.level.roomById(roomId);
@@ -35,7 +35,6 @@ class _GameScreenState extends State<GameScreen> {
   @override
   void initState() {
     super.initState();
-    roomId = widget.level.startRoomId;
   }
 
   void move(int direction) {

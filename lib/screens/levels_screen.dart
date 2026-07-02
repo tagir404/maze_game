@@ -12,7 +12,23 @@ class LevelsScreen extends StatelessWidget {
     final unlockedLevel = progressService.getUnlockedLevel();
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Уровни')),
+      appBar: AppBar(
+        title: const Text('Уровни'),
+        actions: [
+          TextButton.icon(
+            onPressed: () {
+              // Покупка
+            },
+            label: const Text('Открыть премиум уровни'),
+            icon: const Icon(
+              Icons.workspace_premium,
+              size: 24,
+              color: Color(0xFFFFD60A),
+            ),
+            iconAlignment: IconAlignment.end,
+          ),
+        ],
+      ),
       body: GridView.builder(
         padding: const EdgeInsets.all(16),
         itemCount: levels.length,
@@ -57,8 +73,18 @@ class LevelsScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                if (!isUnlocked)
-                  Positioned(
+                if (level.isPremium)
+                  const Positioned(
+                    right: 8,
+                    top: 8,
+                    child: Icon(
+                      Icons.workspace_premium,
+                      size: 16,
+                      color: Color(0xFFFFD60A),
+                    ),
+                  )
+                else if (!isUnlocked)
+                  const Positioned(
                     right: 8,
                     top: 8,
                     child: Icon(Icons.lock, size: 16),

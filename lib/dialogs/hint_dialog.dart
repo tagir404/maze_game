@@ -83,21 +83,20 @@ class _HintDialogState extends State<_HintDialog> {
                 Row(
                   children: [
                     for (final pack in WalletService.packs)
-                      Card(
-                        child: Padding(
-                          padding: EdgeInsetsGeometry.all(8),
-                          child: Column(
-                            spacing: 8,
-                            children: [
-                              CoinsDisplay(quantity: pack.coins),
-                              OutlinedButton(
-                                onPressed: () => _buyPack(pack),
-                                child: Column(
-                                  spacing: 8,
-                                  children: [Text(pack.priceLabel)],
+                      Expanded(
+                        child: Card(
+                          child: Padding(
+                            padding: EdgeInsetsGeometry.all(8),
+                            child: Column(
+                              spacing: 8,
+                              children: [
+                                CoinsDisplay(quantity: pack.coins),
+                                OutlinedButton(
+                                  onPressed: () => _buyPack(pack),
+                                  child: Text(pack.priceLabel),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                       ),

@@ -16,11 +16,11 @@ class WalletService extends ChangeNotifier {
   WalletService({int initialCoins = 0}) : _coins = initialCoins;
 
   static const int hintCost = 10;
+  static const int levelsCost = 100;
 
   static const List<CurrencyPack> packs = [
     CurrencyPack(id: 'coins_50', coins: 50, priceLabel: r'$0.99'),
-    CurrencyPack(id: 'coins_120', coins: 120, priceLabel: r'$1.99'),
-    CurrencyPack(id: 'coins_300', coins: 300, priceLabel: r'$4.99'),
+    CurrencyPack(id: 'coins_120', coins: 130, priceLabel: r'$1.99'),
   ];
 
   int _coins;
@@ -29,12 +29,20 @@ class WalletService extends ChangeNotifier {
 
   bool get canBuyHint => _coins >= hintCost;
 
+  bool get canBuyLevels => _coins >= levelsCost;
+
   bool spendForHint() {
-    if (!canBuyHint) {
-      return false;
-    }
+    if (!canBuyHint) return false;
 
     _coins -= hintCost;
+    notifyListeners();
+    return true;
+  }
+
+  bool spendForLevels() {
+    if (!canBuyLevels) return false;
+
+    _coins -= levelsCost;
     notifyListeners();
     return true;
   }

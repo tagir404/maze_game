@@ -5,7 +5,6 @@ import 'package:maze_game/models/maze_room.dart';
 
 const List<MazeLevel> levels = [
   MazeLevel(
-    startRoomId: 1,
     rooms: [
       MazeRoom(
         id: 1,
@@ -29,7 +28,6 @@ const List<MazeLevel> levels = [
     ],
   ),
   MazeLevel(
-    startRoomId: 1,
     rooms: [
       MazeRoom(
         id: 1,
@@ -68,7 +66,6 @@ const List<MazeLevel> levels = [
     ],
   ),
   MazeLevel(
-    startRoomId: 1,
     rooms: [
       MazeRoom(
         id: 1,
@@ -118,7 +115,6 @@ const List<MazeLevel> levels = [
     ],
   ),
   MazeLevel(
-    startRoomId: 1,
     rooms: [
       MazeRoom(
         id: 1,
@@ -156,7 +152,6 @@ const List<MazeLevel> levels = [
     ],
   ),
   MazeLevel(
-    startRoomId: 1,
     rooms: [
       MazeRoom(
         id: 1,
@@ -206,4 +201,9 @@ const List<MazeLevel> levels = [
       MazeRoom(id: 0, doors: []),
     ],
   ),
+  MazeLevel(rooms: [], isPremium: true),
+  MazeLevel(rooms: [], isPremium: true),
+  MazeLevel(rooms: [], isPremium: true),
+  MazeLevel(rooms: [], isPremium: true),
+  MazeLevel(rooms: [], isPremium: true),
 ];
