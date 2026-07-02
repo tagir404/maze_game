@@ -17,7 +17,7 @@ class LevelsScreen extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         itemCount: levels.length,
         gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-          maxCrossAxisExtent: 100,
+          maxCrossAxisExtent: 90,
           mainAxisSpacing: 12,
           crossAxisSpacing: 12,
           childAspectRatio: 1,
@@ -30,13 +30,13 @@ class LevelsScreen extends StatelessWidget {
           return InkWell(
             borderRadius: BorderRadius.circular(16),
             onTap: () => {
-              if (isUnlocked)
-                Navigator.of(context).push(
-                  MaterialPageRoute<void>(
-                    builder: (_) =>
-                        GameScreen(level: level, levelIndex: index + 1),
-                  ),
+              // if (isUnlocked)
+              Navigator.of(context).push(
+                MaterialPageRoute<void>(
+                  builder: (_) =>
+                      GameScreen(level: level, levelIndex: index + 1),
                 ),
+              ),
             },
             child: Stack(
               children: [

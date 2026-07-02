@@ -155,4 +155,55 @@ const List<MazeLevel> levels = [
       MazeRoom(id: 0, doors: []),
     ],
   ),
+  MazeLevel(
+    startRoomId: 1,
+    rooms: [
+      MazeRoom(
+        id: 1,
+        doors: [
+          MazeDoor(color: Colors.teal, targetRoomId: 2),
+          MazeDoor(color: Colors.teal, targetRoomId: 3),
+          MazeDoor(color: Colors.teal, targetRoomId: 4),
+        ],
+      ),
+      MazeRoom(
+        id: 2,
+        doors: [
+          MazeDoor(color: Colors.amberAccent, targetRoomId: 3),
+          MazeDoor(color: Colors.amberAccent, targetRoomId: 1),
+        ],
+      ),
+      MazeRoom(
+        id: 3,
+        doors: [
+          MazeDoor(color: Color(0xFF127D16), targetRoomId: 2),
+          MazeDoor(color: Color(0xFF127D16), targetRoomId: 7),
+        ],
+      ),
+      MazeRoom(
+        id: 4,
+        doors: [
+          MazeDoor(color: Color(0xFF7F4D75), targetRoomId: 5),
+          MazeDoor(color: Color(0xFF5A3759), targetRoomId: 6),
+        ],
+      ),
+      MazeRoom(id: 5, doors: [MazeDoor(color: Colors.orange, targetRoomId: 8)]),
+      MazeRoom(
+        id: 6,
+        doors: [
+          MazeDoor(color: Colors.grey, targetRoomId: 3),
+          MazeDoor(color: Color(0xFF0C64AB), targetRoomId: 0),
+        ],
+      ),
+      MazeRoom(id: 7, doors: [MazeDoor(color: Colors.white, targetRoomId: 5)]),
+      MazeRoom(
+        id: 8,
+        doors: [
+          MazeDoor(color: Colors.amberAccent, targetRoomId: 5),
+          MazeDoor(color: Colors.amberAccent, targetRoomId: 3),
+        ],
+      ),
+      MazeRoom(id: 0, doors: []),
+    ],
+  ),
 ];
