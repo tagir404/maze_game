@@ -36,7 +36,7 @@ class MazeGameApp extends StatelessWidget {
       title: 'Лабиринт дверей',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFF6C4BF4),
+          seedColor: const Color.fromARGB(255, 255, 255, 255),
           brightness: Brightness.dark,
         ),
         useMaterial3: true,

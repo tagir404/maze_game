@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:maze_game/core/app_dependencies.dart';
 import 'package:maze_game/data/levels.dart';
 import 'package:maze_game/screens/game_screen.dart';
+import 'package:maze_game/widgets/premium_dialog.dart';
 
 class LevelsScreen extends StatelessWidget {
   const LevelsScreen({super.key});
@@ -33,7 +34,7 @@ class LevelsScreen extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         itemCount: levels.length,
         gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-          maxCrossAxisExtent: 90,
+          maxCrossAxisExtent: 70,
           mainAxisSpacing: 12,
           crossAxisSpacing: 12,
           childAspectRatio: 1,
@@ -46,13 +47,19 @@ class LevelsScreen extends StatelessWidget {
           return InkWell(
             borderRadius: BorderRadius.circular(16),
             onTap: () => {
-              // if (isUnlocked)
-              Navigator.of(context).push(
-                MaterialPageRoute<void>(
-                  builder: (_) =>
-                      GameScreen(level: level, levelIndex: index + 1),
+              if (isUnlocked)
+                Navigator.of(context).push(
+                  MaterialPageRoute<void>(
+                    builder: (_) =>
+                        GameScreen(level: level, levelIndex: index + 1),
+                  ),
+                )
+              else if (level.isPremium &&
+                  true) // TODO заменить на проверку есть ли премиум или нет
+                showDialog(
+                  context: context,
+                  builder: (_) => const PremiumDialog(),
                 ),
-              ),
             },
             child: Stack(
               children: [
@@ -66,10 +73,7 @@ class LevelsScreen extends StatelessWidget {
                   child: Center(
                     child: Text(
                       '${index + 1}',
-                      style: const TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.w800,
-                      ),
+                      style: Theme.of(context).textTheme.titleMedium,
                     ),
                   ),
                 ),

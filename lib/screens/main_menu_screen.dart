@@ -38,9 +38,9 @@ class MainMenuScreen extends StatelessWidget {
                     Text(
                       'Лабиринт',
                       textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                        fontWeight: FontWeight.w900,
-                        letterSpacing: 1.2,
+                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.w700,
+                        letterSpacing: 1.5,
                       ),
                     ),
                     const SizedBox(height: 12),
@@ -56,7 +56,7 @@ class MainMenuScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 14),
                     MenuButton(
-                      icon: Icons.map_rounded,
+                      icon: Icons.grid_view,
                       label: 'Уровни',
                       onPressed: () => Navigator.of(context).push(
                         MaterialPageRoute<void>(
