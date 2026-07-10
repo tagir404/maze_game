@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:maze_game/core/app_dependencies.dart';
 import 'package:maze_game/data/levels.dart';
 import 'package:maze_game/screens/game_screen.dart';
 import 'package:maze_game/screens/levels_screen.dart';
@@ -10,6 +11,9 @@ class MainMenuScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final progressService = AppDependencies.of(context).progressService;
+    final unlockedLevel = progressService.getUnlockedLevel();
+
     return Scaffold(
       body: DecoratedBox(
         decoration: const BoxDecoration(
@@ -49,8 +53,10 @@ class MainMenuScreen extends StatelessWidget {
                       label: 'Играть',
                       onPressed: () => Navigator.of(context).push(
                         MaterialPageRoute<void>(
-                          builder: (_) =>
-                              GameScreen(level: levels.first, levelIndex: 1),
+                          builder: (_) => GameScreen(
+                            level: levels[unlockedLevel - 1],
+                            levelIndex: unlockedLevel,
+                          ),
                         ),
                       ),
                     ),
