@@ -104,15 +104,6 @@ class _GameScreenState extends State<GameScreen> {
       appBar: AppBar(
         title: Text('Уровень ${widget.levelIndex}'),
         actions: [
-          AnimatedBuilder(
-            animation: walletService,
-            builder: (context, _) => Center(
-              child: Padding(
-                padding: const EdgeInsets.only(right: 4),
-                child: CoinsDisplay(quantity: walletService.coins),
-              ),
-            ),
-          ),
           IconButton(
             onPressed: () async {
               final result = await showHintDialog(context);
@@ -126,10 +117,19 @@ class _GameScreenState extends State<GameScreen> {
                 });
               }
             },
-            icon: Icon(Icons.lightbulb),
+            icon: const Icon(Icons.lightbulb),
+          ),
+          AnimatedBuilder(
+            animation: walletService,
+            builder: (context, _) => Center(
+              child: Padding(
+                padding: const EdgeInsets.only(left: 4),
+                child: CoinsDisplay(quantity: walletService.coins),
+              ),
+            ),
           ),
         ],
-        actionsPadding: EdgeInsets.only(right: 8),
+        actionsPadding: const EdgeInsets.only(right: 20),
       ),
       body: SafeArea(
         child: Column(

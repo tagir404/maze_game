@@ -16,7 +16,7 @@ class WalletService extends ChangeNotifier {
   WalletService({int initialCoins = 0}) : _coins = initialCoins;
 
   static const int hintCost = 10;
-  static const int levelsCost = 100;
+  static const int premiumCost = 100;
 
   static const List<CurrencyPack> packs = [
     CurrencyPack(id: 'coins_50', coins: 50, priceLabel: r'$0.99'),
@@ -29,7 +29,7 @@ class WalletService extends ChangeNotifier {
 
   bool get canBuyHint => _coins >= hintCost;
 
-  bool get canBuyLevels => _coins >= levelsCost;
+  bool get canBuyPremium => _coins >= premiumCost;
 
   bool spendForHint() {
     if (!canBuyHint) return false;
@@ -39,10 +39,10 @@ class WalletService extends ChangeNotifier {
     return true;
   }
 
-  bool spendForLevels() {
-    if (!canBuyLevels) return false;
+  bool spendForPremium() {
+    if (!canBuyPremium) return false;
 
-    _coins -= levelsCost;
+    _coins -= premiumCost;
     notifyListeners();
     return true;
   }

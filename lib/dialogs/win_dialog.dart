@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:maze_game/data/levels.dart';
 import 'package:maze_game/screens/game_screen.dart';
+import 'package:maze_game/widgets/app_dialog.dart';
 
 Future<void> showWinDialog(
   BuildContext context, {
@@ -10,8 +11,8 @@ Future<void> showWinDialog(
   return showDialog<void>(
     context: context,
     barrierDismissible: false,
-    builder: (context) => AlertDialog(
-      title: const Text('Уровень пройден!'),
+    builder: (context) => AppDialog(
+      title: 'Уровень пройден!',
       content: Text(
         'Ты нашёл выход из уровня $levelIndex. Комнат: $roomsCount.',
       ),

@@ -51,14 +51,15 @@ class _HintDialogState extends State<_HintDialog> {
               Row(
                 spacing: 4,
                 children: [
-                  Text('Баланс: '),
+                  const Text('Баланс: '),
                   CoinsDisplay(quantity: walletService.coins),
                 ],
               ),
               const SizedBox(height: 12),
               Row(
+                spacing: 4,
                 children: [
-                  Text('Стоимость подсказки: '),
+                  const Text('Стоимость подсказки: '),
                   CoinsDisplay(quantity: WalletService.hintCost),
                 ],
               ),

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:maze_game/core/app_dependencies.dart';
 import 'package:maze_game/data/levels.dart';
+import 'package:maze_game/dialogs/premium_required_dialog.dart';
 import 'package:maze_game/screens/game_screen.dart';
-import 'package:maze_game/widgets/premium_dialog.dart';
+import 'package:maze_game/services/wallet_service.dart';
+import 'package:maze_game/widgets/coins_display.dart';
 
 class LevelsScreen extends StatelessWidget {
   const LevelsScreen({super.key});
@@ -17,18 +19,32 @@ class LevelsScreen extends StatelessWidget {
         title: const Text('Уровни'),
         actions: [
           TextButton.icon(
-            onPressed: () {
-              // Покупка
+            onPressed: () async {
+              final shouldBuy = await showPremiumRequiredDialog(context);
+
+              if (shouldBuy == true) {
+                // Покупка
+              }
             },
             label: const Text('Открыть премиум уровни'),
             icon: const Icon(
               Icons.workspace_premium,
               size: 24,
-              color: Color(0xFFFFD60A),
+              color: Color(0xFFF3BF45),
             ),
             iconAlignment: IconAlignment.end,
           ),
+          AnimatedBuilder(
+            animation: walletService,
+            builder: (context, _) => Center(
+              child: Padding(
+                padding: const EdgeInsets.only(left: 4),
+                child: CoinsDisplay(quantity: walletService.coins),
+              ),
+            ),
+          ),
         ],
+        actionsPadding: const EdgeInsets.only(right: 20),
       ),
       body: GridView.builder(
         padding: const EdgeInsets.all(16),
@@ -41,25 +57,28 @@ class LevelsScreen extends StatelessWidget {
         ),
         itemBuilder: (context, index) {
           final level = levels[index];
-          final levelNumber = index + 1;
-          final isUnlocked = levelNumber <= unlockedLevel;
+          final levelIndex = index + 1;
+          final isUnlocked = levelIndex <= unlockedLevel;
 
           return InkWell(
             borderRadius: BorderRadius.circular(16),
-            onTap: () => {
-              if (isUnlocked)
+            onTap: () async {
+              if (isUnlocked) {
                 Navigator.of(context).push(
                   MaterialPageRoute<void>(
                     builder: (_) =>
-                        GameScreen(level: level, levelIndex: index + 1),
+                        GameScreen(level: level, levelIndex: levelIndex),
                   ),
-                )
-              else if (level.isPremium &&
-                  true) // TODO заменить на проверку есть ли премиум или нет
-                showDialog(
-                  context: context,
-                  builder: (_) => const PremiumDialog(),
-                ),
+                );
+              } else if (level.isPremium && true) {
+                final shouldBuy = await showPremiumRequiredDialog(context);
+
+                if (shouldBuy == true) {
+                  // Покупка
+                }
+              } else {
+                // Уровень заблокирован обычным прогрессом
+              }
             },
             child: Stack(
               children: [
@@ -84,7 +103,7 @@ class LevelsScreen extends StatelessWidget {
                     child: Icon(
                       Icons.workspace_premium,
                       size: 16,
-                      color: Color(0xFFFFD60A),
+                      color: Color(0xFFF3BF45),
                     ),
                   )
                 else if (!isUnlocked)
