@@ -18,7 +18,7 @@ class MainMenuScreen extends StatelessWidget {
       body: SafeArea(
         child: Center(
           child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 420),
+            constraints: const BoxConstraints(maxWidth: 360),
             child: Padding(
               padding: const EdgeInsets.all(0),
               child: Column(
@@ -30,7 +30,7 @@ class MainMenuScreen extends StatelessWidget {
                     size: 60,
                     color: Theme.of(context).colorScheme.primary,
                   ),
-                  const SizedBox(height: 12),
+                  const SizedBox(height: 8),
                   Text(
                     'Лабиринт',
                     textAlign: TextAlign.center,
@@ -38,7 +38,7 @@ class MainMenuScreen extends StatelessWidget {
                       fontWeight: FontWeight.w700,
                     ),
                   ),
-                  const SizedBox(height: 12),
+                  const SizedBox(height: 20),
                   MenuButton(
                     icon: Icons.play_arrow_rounded,
                     label: 'Играть',

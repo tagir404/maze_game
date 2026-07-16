@@ -17,12 +17,12 @@ class MenuButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppButton(
       onPressed: onPressed,
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
+        spacing: 10,
         children: [
           Icon(icon, color: Colors.white),
-          const SizedBox(width: 10),
           Text(label, style: Theme.of(context).textTheme.titleMedium),
         ],
       ),

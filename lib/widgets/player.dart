@@ -15,13 +15,14 @@ class Player extends StatelessWidget {
           width: size,
           height: size,
           decoration: BoxDecoration(
-            color: Color(0xFFFFD2A6),
+            color: const Color(0xFFFFD2A6),
             borderRadius: BorderRadius.circular(8),
+            border: Border.all(color: Colors.brown, width: 2),
           ),
           child: const Stack(
             children: [
-              Positioned(left: 8, top: 10, child: _Eye()),
-              Positioned(right: 8, top: 10, child: _Eye()),
+              Positioned(left: 6, top: 10, child: _Eye()),
+              Positioned(right: 6, top: 10, child: _Eye()),
             ],
           ),
         ),
@@ -61,7 +62,10 @@ class _Leg extends StatelessWidget {
       height: 8,
       decoration: const BoxDecoration(
         color: Colors.brown,
-        borderRadius: BorderRadius.all(Radius.circular(2)),
+        borderRadius: BorderRadius.only(
+          bottomLeft: .circular(2),
+          bottomRight: .circular(2),
+        ),
       ),
     );
   }

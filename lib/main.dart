@@ -40,9 +40,20 @@ class MazeGameApp extends StatelessWidget {
           bodyColor: Colors.white,
           displayColor: Colors.white,
         ),
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFFF3BF45),
-          brightness: Brightness.dark,
+        colorScheme: const ColorScheme.dark(
+          primary: Color(0xFFF3BF45),
+          secondary: Color(0xFFFEFFC1),
+          tertiary: Color(0xFF5643A2),
+          error: Color(0xFFE53935),
+
+          surface: Color(0xFF1B2040),
+          surfaceContainer: Color(0xFF23284A),
+          surfaceContainerHigh: Color(0xFF2B3158),
+          surfaceContainerHighest: Color(0xFF572A2D),
+
+          onPrimary: Colors.black,
+          onSecondary: Colors.white,
+          onSurface: Colors.white,
         ),
         useMaterial3: true,
       ),

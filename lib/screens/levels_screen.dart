@@ -29,7 +29,11 @@ class LevelsScreen extends StatelessWidget {
               }
             },
             label: const Text('Открыть премиум уровни'),
-            icon: Icon(Icons.workspace_premium, size: 24),
+            icon: Icon(
+              Icons.workspace_premium,
+              size: 24,
+              color: Theme.of(context).colorScheme.primary,
+            ),
             iconAlignment: IconAlignment.end,
             style: TextButton.styleFrom(foregroundColor: Colors.white),
           ),
@@ -49,7 +53,7 @@ class LevelsScreen extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         itemCount: levels.length,
         gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-          maxCrossAxisExtent: 70,
+          maxCrossAxisExtent: 80,
           mainAxisSpacing: 12,
           crossAxisSpacing: 12,
           childAspectRatio: 1,
@@ -83,19 +87,23 @@ class LevelsScreen extends StatelessWidget {
               children: [
                 Text(
                   '${index + 1}',
-                  style: Theme.of(context).textTheme.titleMedium,
+                  style: Theme.of(context).textTheme.titleSmall,
                 ),
                 if (level.isPremium)
                   Positioned(
                     right: 8,
                     top: 8,
-                    child: Icon(Icons.workspace_premium, size: 16),
+                    child: Icon(
+                      Icons.workspace_premium,
+                      size: 20,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
                   )
                 else if (!isUnlocked)
-                  Positioned(
+                  const Positioned(
                     right: 8,
                     top: 8,
-                    child: Icon(Icons.lock, size: 16),
+                    child: Icon(Icons.lock, size: 20),
                   ),
               ],
             ),
