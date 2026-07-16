@@ -56,10 +56,10 @@ class _HintDialogState extends State<_HintDialog> {
                 ],
               ),
               const SizedBox(height: 12),
-              Row(
+              const Row(
                 spacing: 4,
                 children: [
-                  const Text('Стоимость подсказки: '),
+                  Text('Стоимость подсказки: '),
                   CoinsDisplay(quantity: WalletService.hintCost),
                 ],
               ),
@@ -73,7 +73,7 @@ class _HintDialogState extends State<_HintDialog> {
                       Expanded(
                         child: Card(
                           child: Padding(
-                            padding: EdgeInsetsGeometry.all(8),
+                            padding: const EdgeInsetsGeometry.all(8),
                             child: Column(
                               spacing: 8,
                               children: [

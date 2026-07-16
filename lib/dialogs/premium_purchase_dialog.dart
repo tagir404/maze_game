@@ -20,12 +20,12 @@ class _PremiumPurchaseDialog extends StatelessWidget {
       builder: (context, _) => AppDialog(
         iconData: Icons.workspace_premium,
         iconColor: Theme.of(context).colorScheme.primary,
-        title: "Премиум уровень",
+        title: 'Премиум уровень',
         content: SingleChildScrollView(
           child: Column(
             children: [
               const Text(
-                "Этот уровень станет доступен после покупки премиум-доступа",
+                'Этот уровень станет доступен после покупки премиум-доступа',
               ),
               const SizedBox(height: 12),
               Row(
@@ -36,10 +36,10 @@ class _PremiumPurchaseDialog extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 12),
-              Row(
+              const Row(
                 spacing: 4,
                 children: [
-                  const Text('Стоимость премиум-доступа: '),
+                  Text('Стоимость премиум-доступа: '),
                   CoinsDisplay(quantity: WalletService.premiumCost),
                 ],
               ),
@@ -88,7 +88,7 @@ class _PremiumPurchaseDialog extends StatelessWidget {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
-            child: const Text("Позже"),
+            child: const Text('Позже'),
           ),
           FilledButton.icon(
             onPressed: walletService.canBuyPremium
@@ -98,7 +98,7 @@ class _PremiumPurchaseDialog extends StatelessWidget {
                   }
                 : null,
             icon: const Icon(Icons.workspace_premium),
-            label: const Text("Купить премиум"),
+            label: const Text('Купить премиум'),
           ),
         ],
       ),

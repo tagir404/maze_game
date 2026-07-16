@@ -16,14 +16,14 @@ class _LevelLockedDialog extends StatelessWidget {
     return AppDialog(
       iconData: Icons.lock,
       iconColor: Theme.of(context).colorScheme.primary,
-      title: "Уровень закрыт",
+      title: 'Уровень закрыт',
       content: const Text(
-        "Этот уровень станет доступен после прохождения предыдущих уровней",
+        'Этот уровень станет доступен после прохождения предыдущих уровней',
       ),
       actions: [
         TextButton(
           onPressed: () => Navigator.pop(context),
-          child: const Text("Закрыть"),
+          child: const Text('Закрыть'),
         ),
       ],
     );

@@ -9,13 +9,13 @@ class AppDialog extends StatelessWidget {
   final List<Widget> actions;
 
   const AppDialog({
+    required this.title,
+    required this.content,
+    required this.actions,
     super.key,
     this.iconData,
     this.iconColor,
     this.iconSize = 40,
-    required this.title,
-    required this.content,
-    required this.actions,
   });
 
   @override

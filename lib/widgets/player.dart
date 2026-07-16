@@ -27,9 +27,9 @@ class Player extends StatelessWidget {
           ),
         ),
 
-        Row(
+        const Row(
           mainAxisSize: MainAxisSize.min,
-          children: const [_Leg(), SizedBox(width: 6), _Leg()],
+          children: [_Leg(), SizedBox(width: 6), _Leg()],
         ),
       ],
     );

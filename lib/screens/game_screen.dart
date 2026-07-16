@@ -141,7 +141,7 @@ class _GameScreenState extends State<GameScreen> {
                   builder: (context, constraints) {
                     return Stack(
                       children: [
-                        Positioned.fill(child: const RoomBackground()),
+                        const Positioned.fill(child: RoomBackground()),
                         for (var index = 0; index < room.doors.length; index++)
                           Door(
                             door: room.doors[index],

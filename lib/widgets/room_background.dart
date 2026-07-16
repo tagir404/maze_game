@@ -5,8 +5,8 @@ class RoomBackground extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DecoratedBox(
-      decoration: const BoxDecoration(
+    return const DecoratedBox(
+      decoration: BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(18)),
         gradient: LinearGradient(
           colors: [Color(0xFF29345E), Color(0xFF15192E)],

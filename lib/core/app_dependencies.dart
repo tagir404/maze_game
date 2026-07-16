@@ -3,9 +3,9 @@ import 'package:maze_game/services/progress_service.dart';
 
 class AppDependencies extends InheritedWidget {
   const AppDependencies({
-    super.key,
     required this.progressService,
     required super.child,
+    super.key,
   });
 
   final ProgressService progressService;
