@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:maze_game/core/app_dependencies.dart';
 import 'package:maze_game/data/levels.dart';
-import 'package:maze_game/dialogs/premium_required_dialog.dart';
+import 'package:maze_game/dialogs/level_locked_dialog.dart';
+import 'package:maze_game/dialogs/premium_purchase_dialog.dart';
 import 'package:maze_game/screens/game_screen.dart';
 import 'package:maze_game/services/wallet_service.dart';
 import 'package:maze_game/widgets/app_button.dart';
@@ -77,7 +78,7 @@ class LevelsScreen extends StatelessWidget {
                   // Покупка
                 }
               } else {
-                // Уровень заблокирован обычным прогрессом
+                await showLevelLockedDialog(context);
               }
             },
             child: Stack(

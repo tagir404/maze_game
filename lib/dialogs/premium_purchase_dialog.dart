@@ -6,19 +6,19 @@ import 'package:maze_game/widgets/coins_display.dart';
 Future<bool?> showPremiumRequiredDialog(BuildContext context) {
   return showDialog<bool>(
     context: context,
-    builder: (_) => const _PremiumRequiredDialog(),
+    builder: (_) => const _PremiumPurchaseDialog(),
   );
 }
 
-class _PremiumRequiredDialog extends StatelessWidget {
-  const _PremiumRequiredDialog();
+class _PremiumPurchaseDialog extends StatelessWidget {
+  const _PremiumPurchaseDialog();
 
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
       animation: walletService,
       builder: (context, _) => AppDialog(
-        icon: const Icon(Icons.workspace_premium),
+        iconData: Icons.workspace_premium,
         iconColor: const Color(0xFFF3BF45),
         title: "Премиум уровень",
         content: SingleChildScrollView(

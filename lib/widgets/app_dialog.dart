@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AppDialog extends StatelessWidget {
-  final Widget? icon;
+  final IconData? iconData;
   final Color? iconColor;
   final double iconSize;
   final String title;
@@ -10,7 +10,7 @@ class AppDialog extends StatelessWidget {
 
   const AppDialog({
     super.key,
-    this.icon,
+    this.iconData,
     this.iconColor,
     this.iconSize = 40,
     required this.title,
@@ -21,7 +21,7 @@ class AppDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      icon: icon,
+      icon: Icon(iconData, size: iconSize),
       iconColor: iconColor,
       title: Text(title),
       content: content,
