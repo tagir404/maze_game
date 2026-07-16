@@ -4,6 +4,7 @@ import 'package:maze_game/data/levels.dart';
 import 'package:maze_game/dialogs/premium_required_dialog.dart';
 import 'package:maze_game/screens/game_screen.dart';
 import 'package:maze_game/services/wallet_service.dart';
+import 'package:maze_game/widgets/app_button.dart';
 import 'package:maze_game/widgets/coins_display.dart';
 
 class LevelsScreen extends StatelessWidget {
@@ -60,9 +61,8 @@ class LevelsScreen extends StatelessWidget {
           final levelIndex = index + 1;
           final isUnlocked = levelIndex <= unlockedLevel;
 
-          return InkWell(
-            borderRadius: BorderRadius.circular(16),
-            onTap: () async {
+          return AppButton(
+            onPressed: () async {
               if (isUnlocked) {
                 Navigator.of(context).push(
                   MaterialPageRoute<void>(
@@ -81,20 +81,12 @@ class LevelsScreen extends StatelessWidget {
               }
             },
             child: Stack(
+              // fit: StackFit.expand,
+              alignment: AlignmentGeometry.center,
               children: [
-                Container(
-                  decoration: BoxDecoration(
-                    color: isUnlocked
-                        ? const Color(0xFF202642)
-                        : const Color(0xFF2A2A2A),
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  child: Center(
-                    child: Text(
-                      '${index + 1}',
-                      style: Theme.of(context).textTheme.titleMedium,
-                    ),
-                  ),
+                Text(
+                  '${index + 1}',
+                  style: Theme.of(context).textTheme.titleMedium,
                 ),
                 if (level.isPremium)
                   const Positioned(

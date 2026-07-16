@@ -44,7 +44,6 @@ class MainMenuScreen extends StatelessWidget {
                       textAlign: TextAlign.center,
                       style: Theme.of(context).textTheme.titleLarge?.copyWith(
                         fontWeight: FontWeight.w700,
-                        letterSpacing: 1.5,
                       ),
                     ),
                     const SizedBox(height: 12),
@@ -61,6 +60,7 @@ class MainMenuScreen extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 14),
+
                     MenuButton(
                       icon: Icons.grid_view,
                       label: 'Уровни',

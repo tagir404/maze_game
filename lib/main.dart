@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:maze_game/core/app_dependencies.dart';
 import 'package:maze_game/screens/main_menu_screen.dart';
 import 'package:maze_game/services/audio_service.dart';
@@ -35,6 +36,10 @@ class MazeGameApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Лабиринт дверей',
       theme: ThemeData(
+        textTheme: GoogleFonts.unboundedTextTheme().apply(
+          bodyColor: Colors.white,
+          displayColor: Colors.white,
+        ),
         colorScheme: ColorScheme.fromSeed(
           seedColor: const Color.fromARGB(255, 255, 255, 255),
           brightness: Brightness.dark,
