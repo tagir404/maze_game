@@ -41,11 +41,10 @@ class MazeGameApp extends StatelessWidget {
           displayColor: Colors.white,
         ),
         colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color.fromARGB(255, 255, 255, 255),
+          seedColor: const Color(0xFFF3BF45),
           brightness: Brightness.dark,
         ),
         useMaterial3: true,
-        scaffoldBackgroundColor: const Color(0xFF101321),
       ),
       home: const MainMenuScreen(),
     );

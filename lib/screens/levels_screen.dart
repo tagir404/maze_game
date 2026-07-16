@@ -29,12 +29,9 @@ class LevelsScreen extends StatelessWidget {
               }
             },
             label: const Text('Открыть премиум уровни'),
-            icon: const Icon(
-              Icons.workspace_premium,
-              size: 24,
-              color: Color(0xFFF3BF45),
-            ),
+            icon: Icon(Icons.workspace_premium, size: 24),
             iconAlignment: IconAlignment.end,
+            style: TextButton.styleFrom(foregroundColor: Colors.white),
           ),
           AnimatedBuilder(
             animation: walletService,
@@ -82,7 +79,6 @@ class LevelsScreen extends StatelessWidget {
               }
             },
             child: Stack(
-              // fit: StackFit.expand,
               alignment: AlignmentGeometry.center,
               children: [
                 Text(
@@ -90,17 +86,13 @@ class LevelsScreen extends StatelessWidget {
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
                 if (level.isPremium)
-                  const Positioned(
+                  Positioned(
                     right: 8,
                     top: 8,
-                    child: Icon(
-                      Icons.workspace_premium,
-                      size: 16,
-                      color: Color(0xFFF3BF45),
-                    ),
+                    child: Icon(Icons.workspace_premium, size: 16),
                   )
                 else if (!isUnlocked)
-                  const Positioned(
+                  Positioned(
                     right: 8,
                     top: 8,
                     child: Icon(Icons.lock, size: 16),

@@ -16,7 +16,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
         padding: const EdgeInsets.all(24),
         children: [
           const Card(
-            color: Color(0xFF202642),
             child: Padding(
               padding: EdgeInsets.all(18),
               child: Text(

@@ -11,7 +11,7 @@ class CoinsDisplay extends StatelessWidget {
       spacing: 4,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const Icon(Icons.diamond, color: Color(0xFFF3BF45)),
+        Icon(Icons.diamond, color: Theme.of(context).colorScheme.primary),
         Text(quantity.toString()),
       ],
     );

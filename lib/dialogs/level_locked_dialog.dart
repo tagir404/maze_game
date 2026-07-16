@@ -15,7 +15,7 @@ class _LevelLockedDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppDialog(
       iconData: Icons.lock,
-      iconColor: const Color(0xFFF3BF45),
+      iconColor: Theme.of(context).colorScheme.primary,
       title: "Уровень закрыт",
       content: const Text(
         "Этот уровень станет доступен после прохождения предыдущих уровней",
