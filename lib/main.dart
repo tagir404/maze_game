@@ -34,7 +34,7 @@ class MazeGameApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Лабиринт дверей',
+      title: 'Лабиринт',
       theme: ThemeData(
         textTheme: GoogleFonts.unboundedTextTheme().apply(
           bodyColor: Colors.white,
@@ -47,8 +47,8 @@ class MazeGameApp extends StatelessWidget {
           error: Color(0xFFE53935),
 
           surface: Color(0xFF1B2040),
-          surfaceContainer: Color(0xFF23284A),
-          surfaceContainerHigh: Color(0xFF2B3158),
+          surfaceContainer: Color.fromARGB(255, 68, 75, 122),
+          surfaceContainerHigh: Color.fromARGB(255, 70, 76, 115),
           surfaceContainerHighest: Color(0xFF572A2D),
 
           onPrimary: Colors.black,
