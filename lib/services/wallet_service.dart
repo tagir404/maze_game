@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CurrencyPack {
   const CurrencyPack({
@@ -13,7 +14,13 @@ class CurrencyPack {
 }
 
 class WalletService extends ChangeNotifier {
-  WalletService({int initialCoins = 0}) : _coins = initialCoins;
+  WalletService({int initialCoins = 0, bool initialPremiumAccess = false})
+    : _coins = initialCoins,
+      _hasPremiumAccess = initialPremiumAccess;
+
+  static const _premiumAccessKey = 'premium_access';
+
+  SharedPreferences? _prefs;
 
   static const int hintCost = 10;
   static const int premiumCost = 100;
@@ -24,12 +31,21 @@ class WalletService extends ChangeNotifier {
   ];
 
   int _coins;
+  bool _hasPremiumAccess;
 
   int get coins => _coins;
 
+  bool get hasPremiumAccess => _hasPremiumAccess;
+
   bool get canBuyHint => _coins >= hintCost;
 
-  bool get canBuyPremium => _coins >= premiumCost;
+  bool get canBuyPremium => !hasPremiumAccess && _coins >= premiumCost;
+
+  Future<void> init(SharedPreferences prefs) async {
+    _prefs = prefs;
+    _hasPremiumAccess = prefs.getBool(_premiumAccessKey) ?? false;
+    notifyListeners();
+  }
 
   bool spendForHint() {
     if (!canBuyHint) return false;
@@ -39,16 +55,19 @@ class WalletService extends ChangeNotifier {
     return true;
   }
 
-  bool spendForPremium() {
+  Future<bool> spendForPremium() async {
     if (!canBuyPremium) return false;
 
     _coins -= premiumCost;
+    _hasPremiumAccess = true;
+    await _prefs?.setBool(_premiumAccessKey, true);
     notifyListeners();
     return true;
   }
 
-  void resetForTesting({int coins = 0}) {
+  void resetForTesting({int coins = 0, bool hasPremiumAccess = false}) {
     _coins = coins;
+    _hasPremiumAccess = hasPremiumAccess;
     notifyListeners();
   }
 
