@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -20,6 +21,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
               padding: EdgeInsets.all(18),
               child: Text(
                 'Управление в игре: кнопки влево и вправо переключают персонажа строго между дверями. Нажми действие, чтобы войти в выбранную дверь.',
+              ),
+            ),
+          ),
+          ListTile(
+            title: const Text('Политика конфиденциальности'),
+            onTap: () => launchUrl(
+              Uri.parse(
+                'https://sites.google.com/view/tagirsulaev-mazegame/policy',
               ),
             ),
           ),

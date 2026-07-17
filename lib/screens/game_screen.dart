@@ -16,10 +16,10 @@ import 'package:maze_game/widgets/player.dart';
 import 'package:maze_game/dialogs/win_dialog.dart';
 
 class GameScreen extends StatefulWidget {
-  const GameScreen({required this.level, required this.levelIndex, super.key});
+  const GameScreen({required this.level, required this.levelNumber, super.key});
 
   final MazeLevel level;
-  final int levelIndex;
+  final int levelNumber;
 
   @override
   State<GameScreen> createState() => _GameScreenState();
@@ -85,7 +85,7 @@ class _GameScreenState extends State<GameScreen> {
   Future<void> _handleWin() async {
     final progressService = AppDependencies.of(context).progressService;
 
-    await progressService.unlockNextLevel(widget.levelIndex);
+    await progressService.unlockNextLevel(widget.levelNumber);
 
     await Future.delayed(const Duration(milliseconds: 250));
 
@@ -93,7 +93,7 @@ class _GameScreenState extends State<GameScreen> {
 
     showWinDialog(
       context,
-      levelIndex: widget.levelIndex,
+      levelNumber: widget.levelNumber,
       roomsCount: widget.level.rooms.length,
     );
   }
@@ -102,7 +102,7 @@ class _GameScreenState extends State<GameScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Уровень ${widget.levelIndex}'),
+        title: Text('Уровень ${widget.levelNumber}'),
         actions: [
           IconButton(
             onPressed: () async {

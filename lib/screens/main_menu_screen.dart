@@ -52,7 +52,7 @@ class MainMenuScreen extends StatelessWidget {
                           MaterialPageRoute<void>(
                             builder: (_) => GameScreen(
                               level: levels[playableLevelIndex - 1],
-                              levelIndex: playableLevelIndex,
+                              levelNumber: playableLevelIndex,
                             ),
                           ),
                         ),
@@ -90,9 +90,9 @@ class MainMenuScreen extends StatelessWidget {
 }
 
 int _playableLevelIndex(int unlockedLevel) {
-  final levelIndex = unlockedLevel.clamp(1, levels.length).toInt();
-  if (walletService.hasPremiumAccess) return levelIndex;
-  if (!levels[levelIndex - 1].isPremium) return levelIndex;
+  final levelNumber = unlockedLevel.clamp(1, levels.length).toInt();
+  if (walletService.hasPremiumAccess) return levelNumber;
+  if (!levels[levelNumber - 1].isPremium) return levelNumber;
 
   return levels.lastIndexWhere((level) => !level.isPremium) + 1;
 }

@@ -5,16 +5,18 @@ import 'package:maze_game/widgets/app_dialog.dart';
 
 Future<void> showWinDialog(
   BuildContext context, {
-  required int levelIndex,
+  required int levelNumber,
   required int roomsCount,
 }) {
+  final hasNextLevel = levelNumber < levels.length;
+
   return showDialog<void>(
     context: context,
     barrierDismissible: false,
     builder: (context) => AppDialog(
       title: 'Уровень пройден!',
       content: Text(
-        'Ты нашёл выход из уровня $levelIndex. Комнат: $roomsCount.',
+        'Ты нашёл выход из уровня $levelNumber. Комнат: $roomsCount.',
       ),
       actions: [
         FilledButton(
@@ -22,17 +24,21 @@ Future<void> showWinDialog(
               Navigator.of(context).popUntil((route) => route.isFirst),
           child: const Text('В меню'),
         ),
-        FilledButton(
-          onPressed: () => Navigator.of(context).pushReplacement(
-            MaterialPageRoute<void>(
-              builder: (_) => GameScreen(
-                level: levels[levelIndex],
-                levelIndex: levelIndex + 1,
-              ),
-            ),
+        if (hasNextLevel)
+          FilledButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute<void>(
+                  builder: (_) => GameScreen(
+                    level: levels[levelNumber],
+                    levelNumber: levelNumber + 1,
+                  ),
+                ),
+              );
+            },
+            child: const Text('Следующий уровень'),
           ),
-          child: const Text('Следующий уровень'),
-        ),
       ],
     ),
   );

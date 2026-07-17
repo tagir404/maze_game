@@ -19,7 +19,6 @@ class _PremiumPurchaseDialog extends StatelessWidget {
       animation: walletService,
       builder: (context, _) => AppDialog(
         iconData: Icons.workspace_premium,
-        iconColor: Theme.of(context).colorScheme.primary,
         title: 'Премиум уровень',
         content: SingleChildScrollView(
           child: Column(

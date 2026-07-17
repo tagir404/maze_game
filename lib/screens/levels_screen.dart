@@ -61,8 +61,8 @@ class LevelsScreen extends StatelessWidget {
             ),
             itemBuilder: (context, index) {
               final level = levels[index];
-              final levelIndex = index + 1;
-              final isUnlocked = levelIndex <= unlockedLevel;
+              final levelNumber = index + 1;
+              final isUnlocked = levelNumber <= unlockedLevel;
               final isPremiumLocked = level.isPremium && !hasPremiumAccess;
               final isPlayable = isUnlocked && !isPremiumLocked;
 
@@ -72,7 +72,7 @@ class LevelsScreen extends StatelessWidget {
                     Navigator.of(context).push(
                       MaterialPageRoute<void>(
                         builder: (_) =>
-                            GameScreen(level: level, levelIndex: levelIndex),
+                            GameScreen(level: level, levelNumber: levelNumber),
                       ),
                     );
                   } else if (isPremiumLocked) {
@@ -85,7 +85,7 @@ class LevelsScreen extends StatelessWidget {
                   alignment: AlignmentGeometry.center,
                   children: [
                     Text(
-                      '$levelIndex',
+                      '$levelNumber',
                       style: Theme.of(context).textTheme.titleSmall,
                     ),
                     if (isPremiumLocked)
