@@ -5,6 +5,7 @@ import 'package:maze_game/core/app_dependencies.dart';
 import 'package:maze_game/screens/main_menu_screen.dart';
 import 'package:maze_game/services/audio_service.dart';
 import 'package:maze_game/services/progress_service.dart';
+import 'package:maze_game/services/wallet_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 Future<void> main() async {
@@ -14,6 +15,7 @@ Future<void> main() async {
 
   final prefs = await SharedPreferences.getInstance();
   final progressService = ProgressService(prefs);
+  await walletService.init(prefs);
 
   await SystemChrome.setPreferredOrientations(const [
     DeviceOrientation.landscapeLeft,

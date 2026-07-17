@@ -92,9 +92,11 @@ class _PremiumPurchaseDialog extends StatelessWidget {
           ),
           FilledButton.icon(
             onPressed: walletService.canBuyPremium
-                ? () {
-                    walletService.spendForPremium();
-                    Navigator.pop(context, true);
+                ? () async {
+                    final premiumBought = await walletService.spendForPremium();
+                    if (!context.mounted) return;
+
+                    Navigator.pop(context, premiumBought);
                   }
                 : null,
             icon: const Icon(Icons.workspace_premium),

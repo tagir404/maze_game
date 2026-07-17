@@ -16,99 +16,123 @@ class LevelsScreen extends StatelessWidget {
     final progressService = AppDependencies.of(context).progressService;
     final unlockedLevel = progressService.getUnlockedLevel();
 
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Уровни'),
-        actions: [
-          TextButton.icon(
-            onPressed: () async {
-              final shouldBuy = await showPremiumRequiredDialog(context);
+    return AnimatedBuilder(
+      animation: walletService,
+      builder: (context, _) {
+        final hasPremiumAccess = walletService.hasPremiumAccess;
 
-              if (shouldBuy == true) {
-                // Покупка
-              }
-            },
-            label: const Text('Открыть премиум уровни'),
-            icon: Icon(
-              Icons.workspace_premium,
-              size: 24,
-              color: Theme.of(context).colorScheme.primary,
-            ),
-            iconAlignment: IconAlignment.end,
-            style: TextButton.styleFrom(foregroundColor: Colors.white),
-          ),
-          AnimatedBuilder(
-            animation: walletService,
-            builder: (context, _) => Center(
-              child: Padding(
-                padding: const EdgeInsets.only(left: 4),
-                child: CoinsDisplay(quantity: walletService.coins),
-              ),
-            ),
-          ),
-        ],
-        actionsPadding: const EdgeInsets.only(right: 20),
-      ),
-      body: GridView.builder(
-        padding: const EdgeInsets.all(16),
-        itemCount: levels.length,
-        gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-          maxCrossAxisExtent: 80,
-          mainAxisSpacing: 12,
-          crossAxisSpacing: 12,
-          childAspectRatio: 1,
-        ),
-        itemBuilder: (context, index) {
-          final level = levels[index];
-          final levelIndex = index + 1;
-          final isUnlocked = levelIndex <= unlockedLevel;
-
-          return AppButton(
-            onPressed: () async {
-              if (isUnlocked) {
-                Navigator.of(context).push(
-                  MaterialPageRoute<void>(
-                    builder: (_) =>
-                        GameScreen(level: level, levelIndex: levelIndex),
+        return Scaffold(
+          appBar: AppBar(
+            title: const Text('Уровни'),
+            actions: [
+              if (hasPremiumAccess)
+                _PremiumAccessActiveBadge(
+                  color: Theme.of(context).colorScheme.primary,
+                )
+              else
+                TextButton.icon(
+                  onPressed: () => showPremiumRequiredDialog(context),
+                  label: const Text('Открыть премиум уровни'),
+                  icon: Icon(
+                    Icons.workspace_premium,
+                    size: 24,
+                    color: Theme.of(context).colorScheme.primary,
                   ),
-                );
-              } else if (level.isPremium && true) {
-                final shouldBuy = await showPremiumRequiredDialog(context);
-
-                if (shouldBuy == true) {
-                  // Покупка
-                }
-              } else {
-                await showLevelLockedDialog(context);
-              }
-            },
-            child: Stack(
-              alignment: AlignmentGeometry.center,
-              children: [
-                Text(
-                  '${index + 1}',
-                  style: Theme.of(context).textTheme.titleSmall,
+                  iconAlignment: IconAlignment.end,
+                  style: TextButton.styleFrom(foregroundColor: Colors.white),
                 ),
-                if (level.isPremium)
-                  Positioned(
-                    right: 8,
-                    top: 8,
-                    child: Icon(
-                      Icons.workspace_premium,
-                      size: 20,
-                      color: Theme.of(context).colorScheme.primary,
-                    ),
-                  )
-                else if (!isUnlocked)
-                  const Positioned(
-                    right: 8,
-                    top: 8,
-                    child: Icon(Icons.lock, size: 20),
-                  ),
-              ],
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 4),
+                  child: CoinsDisplay(quantity: walletService.coins),
+                ),
+              ),
+            ],
+            actionsPadding: const EdgeInsets.only(right: 20),
+          ),
+          body: GridView.builder(
+            padding: const EdgeInsets.all(16),
+            itemCount: levels.length,
+            gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+              maxCrossAxisExtent: 80,
+              mainAxisSpacing: 12,
+              crossAxisSpacing: 12,
+              childAspectRatio: 1,
             ),
-          );
-        },
+            itemBuilder: (context, index) {
+              final level = levels[index];
+              final levelIndex = index + 1;
+              final isUnlocked = levelIndex <= unlockedLevel;
+              final isPremiumLocked = level.isPremium && !hasPremiumAccess;
+              final isPlayable = isUnlocked && !isPremiumLocked;
+
+              return AppButton(
+                onPressed: () async {
+                  if (isPlayable) {
+                    Navigator.of(context).push(
+                      MaterialPageRoute<void>(
+                        builder: (_) =>
+                            GameScreen(level: level, levelIndex: levelIndex),
+                      ),
+                    );
+                  } else if (isPremiumLocked) {
+                    await showPremiumRequiredDialog(context);
+                  } else {
+                    await showLevelLockedDialog(context);
+                  }
+                },
+                child: Stack(
+                  alignment: AlignmentGeometry.center,
+                  children: [
+                    Text(
+                      '$levelIndex',
+                      style: Theme.of(context).textTheme.titleSmall,
+                    ),
+                    if (isPremiumLocked)
+                      Positioned(
+                        right: 8,
+                        top: 8,
+                        child: Icon(
+                          Icons.workspace_premium,
+                          size: 20,
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
+                      )
+                    else if (!isUnlocked)
+                      const Positioned(
+                        right: 8,
+                        top: 8,
+                        child: Icon(Icons.lock, size: 20),
+                      ),
+                  ],
+                ),
+              );
+            },
+          ),
+        );
+      },
+    );
+  }
+}
+
+class _PremiumAccessActiveBadge extends StatelessWidget {
+  const _PremiumAccessActiveBadge({required this.color});
+
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) {
+    return IgnorePointer(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Text('Премиум-доступ активирован'),
+            const SizedBox(width: 8),
+            Icon(Icons.workspace_premium, size: 24, color: color),
+          ],
+        ),
       ),
     );
   }
