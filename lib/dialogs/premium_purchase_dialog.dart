@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:maze_game/l10n/app_localizations.dart';
 import 'package:maze_game/services/wallet_service.dart';
 import 'package:maze_game/widgets/app_dialog.dart';
 import 'package:maze_game/widgets/coins_display.dart';
@@ -19,31 +20,29 @@ class _PremiumPurchaseDialog extends StatelessWidget {
       animation: walletService,
       builder: (context, _) => AppDialog(
         iconData: Icons.workspace_premium,
-        title: 'Премиум уровень',
+        title: AppLocalizations.of(context).premiumLevel,
         content: Column(
           children: [
-            const Text(
-              'Этот уровень станет доступен после покупки премиум-доступа',
+            Text(AppLocalizations.of(context).premiumLevelDescription),
+            const SizedBox(height: 8),
+            Row(
+              spacing: 4,
+              children: [
+                Text(AppLocalizations.of(context).balance),
+                CoinsDisplay(quantity: walletService.coins),
+              ],
             ),
             const SizedBox(height: 8),
             Row(
               spacing: 4,
               children: [
-                const Text('Баланс: '),
-                CoinsDisplay(quantity: walletService.coins),
-              ],
-            ),
-            const SizedBox(height: 8),
-            const Row(
-              spacing: 4,
-              children: [
-                Text('Стоимость премиум-доступа: '),
-                CoinsDisplay(quantity: WalletService.premiumCost),
+                Text(AppLocalizations.of(context).premiumCost),
+                const CoinsDisplay(quantity: WalletService.premiumCost),
               ],
             ),
             if (!walletService.canBuyPremium) ...[
               const SizedBox(height: 12),
-              const Text('Не хватает монет? Купи игровой набор:'),
+              Text(AppLocalizations.of(context).notEnoughCoinsPack),
               const SizedBox(height: 8),
               Row(
                 children: [
@@ -65,12 +64,18 @@ class _PremiumPurchaseDialog extends StatelessWidget {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
                                       content: Text(
-                                        'Куплено ${pack.coins} монет',
+                                        AppLocalizations.of(
+                                          context,
+                                        ).boughtCoins(pack.coins),
                                       ),
                                     ),
                                   );
                                 },
-                                child: Text(pack.priceLabel),
+                                child: Text(
+                                  pack.priceLabel == 'Бесплатно'
+                                      ? AppLocalizations.of(context).free
+                                      : pack.priceLabel,
+                                ),
                               ),
                             ],
                           ),
@@ -85,7 +90,7 @@ class _PremiumPurchaseDialog extends StatelessWidget {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
-            child: const Text('Позже'),
+            child: Text(AppLocalizations.of(context).later),
           ),
           FilledButton.icon(
             onPressed: walletService.canBuyPremium
@@ -97,7 +102,7 @@ class _PremiumPurchaseDialog extends StatelessWidget {
                   }
                 : null,
             icon: const Icon(Icons.workspace_premium),
-            label: const Text('Купить премиум'),
+            label: Text(AppLocalizations.of(context).buyPremium),
           ),
         ],
       ),

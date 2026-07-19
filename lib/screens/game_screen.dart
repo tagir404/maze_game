@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:maze_game/common/constants.dart';
 import 'package:maze_game/core/app_dependencies.dart';
 import 'package:maze_game/dialogs/hint_dialog.dart';
+import 'package:maze_game/l10n/app_localizations.dart';
 import 'package:maze_game/logic/maze_path_finder.dart';
 import 'package:maze_game/models/maze_door.dart';
 import 'package:maze_game/models/maze_level.dart';
@@ -102,7 +103,7 @@ class _GameScreenState extends State<GameScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Уровень ${widget.levelNumber}'),
+        title: Text(AppLocalizations.of(context).level(widget.levelNumber)),
         actions: [
           IconButton(
             onPressed: () async {

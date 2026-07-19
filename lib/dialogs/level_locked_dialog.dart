@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:maze_game/l10n/app_localizations.dart';
 import 'package:maze_game/widgets/app_dialog.dart';
 
 Future<void> showLevelLockedDialog(BuildContext context) {
@@ -15,14 +16,12 @@ class _LevelLockedDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppDialog(
       iconData: Icons.lock,
-      title: 'Уровень закрыт',
-      content: const Text(
-        'Этот уровень станет доступен после прохождения предыдущих уровней',
-      ),
+      title: AppLocalizations.of(context).levelLocked,
+      content: Text(AppLocalizations.of(context).levelLockedDescription),
       actions: [
         TextButton(
           onPressed: () => Navigator.pop(context),
-          child: const Text('Закрыть'),
+          child: Text(AppLocalizations.of(context).close),
         ),
       ],
     );
