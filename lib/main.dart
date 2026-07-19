@@ -17,6 +17,8 @@ Future<void> main() async {
   final progressService = ProgressService(prefs);
   await walletService.init(prefs);
 
+  await SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+
   await SystemChrome.setPreferredOrientations(const [
     DeviceOrientation.landscapeLeft,
     DeviceOrientation.landscapeRight,

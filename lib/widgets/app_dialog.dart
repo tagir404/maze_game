@@ -26,6 +26,7 @@ class AppDialog extends StatelessWidget {
       title: Text(title),
       content: content,
       actions: actions,
+      scrollable: true,
     );
   }
 }

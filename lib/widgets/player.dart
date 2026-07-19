@@ -62,7 +62,7 @@ class _Leg extends StatelessWidget {
       height: 8,
       decoration: const BoxDecoration(
         color: Colors.brown,
-        borderRadius: BorderRadius.only(
+        borderRadius: .only(
           bottomLeft: .circular(2),
           bottomRight: .circular(2),
         ),

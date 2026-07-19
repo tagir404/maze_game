@@ -26,8 +26,8 @@ class WalletService extends ChangeNotifier {
   static const int premiumCost = 100;
 
   static const List<CurrencyPack> packs = [
-    CurrencyPack(id: 'coins_50', coins: 50, priceLabel: r'$0.99'),
-    CurrencyPack(id: 'coins_120', coins: 130, priceLabel: r'$1.99'),
+    CurrencyPack(id: 'coins_50', coins: 50, priceLabel: 'Бесплатно'),
+    CurrencyPack(id: 'coins_120', coins: 130, priceLabel: 'Бесплатно'),
   ];
 
   int _coins;

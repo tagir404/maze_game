@@ -50,64 +50,68 @@ class LevelsScreen extends StatelessWidget {
             ],
             actionsPadding: const EdgeInsets.only(right: 20),
           ),
-          body: GridView.builder(
-            padding: const EdgeInsets.all(16),
-            itemCount: levels.length,
-            gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-              maxCrossAxisExtent: 80,
-              mainAxisSpacing: 12,
-              crossAxisSpacing: 12,
-              childAspectRatio: 1,
-            ),
-            itemBuilder: (context, index) {
-              final level = levels[index];
-              final levelNumber = index + 1;
-              final isUnlocked = levelNumber <= unlockedLevel;
-              final isPremiumLocked = level.isPremium && !hasPremiumAccess;
-              final isPlayable = isUnlocked && !isPremiumLocked;
+          body: SafeArea(
+            child: GridView.builder(
+              padding: const EdgeInsets.all(16),
+              itemCount: levels.length,
+              gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                maxCrossAxisExtent: 80,
+                mainAxisSpacing: 12,
+                crossAxisSpacing: 12,
+                childAspectRatio: 1,
+              ),
+              itemBuilder: (context, index) {
+                final level = levels[index];
+                final levelNumber = index + 1;
+                final isUnlocked = levelNumber <= unlockedLevel;
+                final isPremiumLocked = level.isPremium && !hasPremiumAccess;
+                final isPlayable = isUnlocked && !isPremiumLocked;
 
-              return AppButton(
-                onPressed: () async {
-                  if (isPlayable) {
-                    Navigator.of(context).push(
-                      MaterialPageRoute<void>(
-                        builder: (_) =>
-                            GameScreen(level: level, levelNumber: levelNumber),
-                      ),
-                    );
-                  } else if (isPremiumLocked) {
-                    await showPremiumRequiredDialog(context);
-                  } else {
-                    await showLevelLockedDialog(context);
-                  }
-                },
-                child: Stack(
-                  alignment: AlignmentGeometry.center,
-                  children: [
-                    Text(
-                      '$levelNumber',
-                      style: Theme.of(context).textTheme.titleSmall,
-                    ),
-                    if (isPremiumLocked)
-                      Positioned(
-                        right: 8,
-                        top: 8,
-                        child: Icon(
-                          Icons.workspace_premium,
-                          size: 20,
-                          color: Theme.of(context).colorScheme.primary,
+                return AppButton(
+                  onPressed: () async {
+                    if (isPlayable) {
+                      Navigator.of(context).push(
+                        MaterialPageRoute<void>(
+                          builder: (_) => GameScreen(
+                            level: level,
+                            levelNumber: levelNumber,
+                          ),
                         ),
-                      )
-                    else if (!isUnlocked)
-                      const Positioned(
-                        right: 8,
-                        top: 8,
-                        child: Icon(Icons.lock, size: 20),
+                      );
+                    } else if (isPremiumLocked) {
+                      await showPremiumRequiredDialog(context);
+                    } else {
+                      await showLevelLockedDialog(context);
+                    }
+                  },
+                  child: Stack(
+                    alignment: AlignmentGeometry.center,
+                    children: [
+                      Text(
+                        '$levelNumber',
+                        style: Theme.of(context).textTheme.titleSmall,
                       ),
-                  ],
-                ),
-              );
-            },
+                      if (isPremiumLocked)
+                        Positioned(
+                          right: 8,
+                          top: 8,
+                          child: Icon(
+                            Icons.workspace_premium,
+                            size: 20,
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
+                        )
+                      else if (!isUnlocked)
+                        const Positioned(
+                          right: 8,
+                          top: 8,
+                          child: Icon(Icons.lock, size: 20),
+                        ),
+                    ],
+                  ),
+                );
+              },
+            ),
           ),
         );
       },

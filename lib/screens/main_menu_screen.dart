@@ -21,65 +21,51 @@ class MainMenuScreen extends StatelessWidget {
         final playableLevelIndex = _playableLevelIndex(unlockedLevel);
 
         return Scaffold(
-          body: SafeArea(
-            child: Center(
-              child: ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: 360),
-                child: Padding(
-                  padding: const EdgeInsets.all(0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Icon(
-                        Icons.door_sliding,
-                        size: 60,
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        'Лабиринт',
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                      const SizedBox(height: 20),
-                      MenuButton(
-                        icon: Icons.play_arrow_rounded,
-                        label: 'Играть',
-                        onPressed: () => Navigator.of(context).push(
-                          MaterialPageRoute<void>(
-                            builder: (_) => GameScreen(
-                              level: levels[playableLevelIndex - 1],
-                              levelNumber: playableLevelIndex,
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 14),
-                      MenuButton(
-                        icon: Icons.grid_view,
-                        label: 'Уровни',
-                        onPressed: () => Navigator.of(context).push(
-                          MaterialPageRoute<void>(
-                            builder: (_) => const LevelsScreen(),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 14),
-                      MenuButton(
-                        icon: Icons.settings_rounded,
-                        label: 'Настройки',
-                        onPressed: () => Navigator.of(context).push(
-                          MaterialPageRoute<void>(
-                            builder: (_) => const SettingsScreen(),
-                          ),
-                        ),
-                      ),
-                    ],
+          body: Center(
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 360),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Лабиринт',
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.displaySmall,
                   ),
-                ),
+                  const SizedBox(height: 20),
+                  MenuButton(
+                    icon: Icons.play_arrow_rounded,
+                    label: 'Играть',
+                    onPressed: () => Navigator.of(context).push(
+                      MaterialPageRoute<void>(
+                        builder: (_) => GameScreen(
+                          level: levels[playableLevelIndex - 1],
+                          levelNumber: playableLevelIndex,
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 14),
+                  MenuButton(
+                    icon: Icons.grid_view,
+                    label: 'Уровни',
+                    onPressed: () => Navigator.of(context).push(
+                      MaterialPageRoute<void>(
+                        builder: (_) => const LevelsScreen(),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 14),
+                  MenuButton(
+                    icon: Icons.settings_rounded,
+                    label: 'Настройки',
+                    onPressed: () => Navigator.of(context).push(
+                      MaterialPageRoute<void>(
+                        builder: (_) => const SettingsScreen(),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
