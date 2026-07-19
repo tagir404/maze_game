@@ -22,7 +22,7 @@ class MenuButton extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         spacing: 10,
         children: [
-          Icon(icon, color: Colors.white),
+          Icon(icon, color: Theme.of(context).colorScheme.onSurface),
           Text(label, style: Theme.of(context).textTheme.titleMedium),
         ],
       ),

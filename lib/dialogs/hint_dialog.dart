@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:maze_game/l10n/app_localizations.dart';
 import 'package:maze_game/services/wallet_service.dart';
 import 'package:maze_game/widgets/app_dialog.dart';
 import 'package:maze_game/widgets/coins_display.dart';
@@ -24,13 +25,17 @@ class _HintDialogState extends State<_HintDialog> {
 
     ScaffoldMessenger.of(
       context,
-    ).showSnackBar(SnackBar(content: Text('Куплено ${pack.coins} монет')));
+    ).showSnackBar(SnackBar(
+      content: Text(AppLocalizations.of(context).boughtCoins(pack.coins)),
+    ));
   }
 
   void _useHint() {
     if (!walletService.spendForHint()) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Недостаточно монет для подсказки')),
+        SnackBar(
+          content: Text(AppLocalizations.of(context).notEnoughCoinsForHint),
+        ),
       );
       return;
     }
@@ -43,7 +48,7 @@ class _HintDialogState extends State<_HintDialog> {
     return AnimatedBuilder(
       animation: walletService,
       builder: (context, _) => AppDialog(
-        title: 'Подсказка',
+        title: AppLocalizations.of(context).hint,
         content: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -51,21 +56,21 @@ class _HintDialogState extends State<_HintDialog> {
             Row(
               spacing: 4,
               children: [
-                const Text('Баланс: '),
+                Text(AppLocalizations.of(context).balance),
                 CoinsDisplay(quantity: walletService.coins),
               ],
             ),
             const SizedBox(height: 8),
-            const Row(
+            Row(
               spacing: 4,
               children: [
-                Text('Стоимость подсказки: '),
-                CoinsDisplay(quantity: WalletService.hintCost),
+                Text(AppLocalizations.of(context).hintCost),
+                const CoinsDisplay(quantity: WalletService.hintCost),
               ],
             ),
             if (!walletService.canBuyHint) ...[
               const SizedBox(height: 12),
-              const Text('Не хватает монет? Купи игровой набор:'),
+              Text(AppLocalizations.of(context).notEnoughCoinsPack),
               const SizedBox(height: 8),
               Row(
                 children: [
@@ -80,7 +85,11 @@ class _HintDialogState extends State<_HintDialog> {
                               CoinsDisplay(quantity: pack.coins),
                               OutlinedButton(
                                 onPressed: () => _buyPack(pack),
-                                child: Text(pack.priceLabel),
+                                child: Text(
+                                  pack.priceLabel == 'Бесплатно'
+                                      ? AppLocalizations.of(context).free
+                                      : pack.priceLabel,
+                                ),
                               ),
                             ],
                           ),
@@ -95,12 +104,12 @@ class _HintDialogState extends State<_HintDialog> {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(false),
-            child: const Text('Отмена'),
+            child: Text(AppLocalizations.of(context).cancel),
           ),
           FilledButton.icon(
             onPressed: walletService.canBuyHint ? _useHint : null,
             icon: const Icon(Icons.lightbulb),
-            label: const Text('Взять подсказку'),
+            label: Text(AppLocalizations.of(context).takeHint),
           ),
         ],
       ),

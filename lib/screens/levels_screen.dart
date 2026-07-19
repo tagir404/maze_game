@@ -3,6 +3,7 @@ import 'package:maze_game/core/app_dependencies.dart';
 import 'package:maze_game/data/levels.dart';
 import 'package:maze_game/dialogs/level_locked_dialog.dart';
 import 'package:maze_game/dialogs/premium_purchase_dialog.dart';
+import 'package:maze_game/l10n/app_localizations.dart';
 import 'package:maze_game/screens/game_screen.dart';
 import 'package:maze_game/services/wallet_service.dart';
 import 'package:maze_game/widgets/app_button.dart';
@@ -13,6 +14,7 @@ class LevelsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     final progressService = AppDependencies.of(context).progressService;
     final unlockedLevel = progressService.getUnlockedLevel();
 
@@ -23,7 +25,7 @@ class LevelsScreen extends StatelessWidget {
 
         return Scaffold(
           appBar: AppBar(
-            title: const Text('Уровни'),
+            title: Text(l10n.levels),
             actions: [
               if (hasPremiumAccess)
                 _PremiumAccessActiveBadge(
@@ -32,14 +34,16 @@ class LevelsScreen extends StatelessWidget {
               else
                 TextButton.icon(
                   onPressed: () => showPremiumRequiredDialog(context),
-                  label: const Text('Открыть премиум уровни'),
+                  label: Text(l10n.unlockPremiumLevels),
                   icon: Icon(
                     Icons.workspace_premium,
                     size: 24,
                     color: Theme.of(context).colorScheme.primary,
                   ),
                   iconAlignment: IconAlignment.end,
-                  style: TextButton.styleFrom(foregroundColor: Colors.white),
+                  style: TextButton.styleFrom(
+                    foregroundColor: Theme.of(context).colorScheme.onSurface,
+                  ),
                 ),
               Center(
                 child: Padding(
@@ -132,7 +136,7 @@ class _PremiumAccessActiveBadge extends StatelessWidget {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Text('Премиум-доступ активирован'),
+            Text(AppLocalizations.of(context).premiumAccessActive),
             const SizedBox(width: 8),
             Icon(Icons.workspace_premium, size: 24, color: color),
           ],

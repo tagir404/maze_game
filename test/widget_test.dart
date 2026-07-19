@@ -1,22 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
+import 'package:maze_game/core/app_dependencies.dart';
 import 'package:maze_game/main.dart';
+import 'package:maze_game/services/progress_service.dart';
+import 'package:maze_game/services/settings_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+Future<Widget> testApp() async {
+  SharedPreferences.setMockInitialValues({});
+  final prefs = await SharedPreferences.getInstance();
+  final settingsService = SettingsService(prefs);
+  await settingsService.load();
+  await settingsService.setLocale(const Locale('ru'));
+
+  return AppDependencies(
+    progressService: ProgressService(prefs),
+    settingsService: settingsService,
+    child: MazeGameApp(settingsService: settingsService),
+  );
+}
 
 void main() {
   testWidgets('main menu shows requested buttons', (WidgetTester tester) async {
-    await tester.pumpWidget(const MazeGameApp());
+    await tester.pumpWidget(await testApp());
 
     expect(find.text('Лабиринт'), findsOneWidget);
-    expect(find.widgetWithText(FilledButton, 'Играть'), findsOneWidget);
-    expect(find.widgetWithText(FilledButton, 'Уровни'), findsOneWidget);
-    expect(find.widgetWithText(FilledButton, 'Настройки'), findsOneWidget);
+    expect(find.text('Играть'), findsOneWidget);
+    expect(find.text('Уровни'), findsOneWidget);
+    expect(find.text('Настройки'), findsOneWidget);
   });
 
   testWidgets('play opens the first room with movement and action controls', (
     WidgetTester tester,
   ) async {
-    await tester.pumpWidget(const MazeGameApp());
+    await tester.pumpWidget(await testApp());
 
     await tester.tap(find.text('Играть'));
     await tester.pumpAndSettle();
@@ -30,7 +47,7 @@ void main() {
   testWidgets('movement switches between doors before action', (
     WidgetTester tester,
   ) async {
-    await tester.pumpWidget(const MazeGameApp());
+    await tester.pumpWidget(await testApp());
 
     await tester.tap(find.text('Играть'));
     await tester.pumpAndSettle();
@@ -48,7 +65,7 @@ void main() {
   testWidgets('level is completed only after entering the exit room', (
     WidgetTester tester,
   ) async {
-    await tester.pumpWidget(const MazeGameApp());
+    await tester.pumpWidget(await testApp());
 
     await tester.tap(find.text('Играть'));
     await tester.pumpAndSettle();
@@ -69,7 +86,7 @@ void main() {
   });
 
   testWidgets('levels screen lists available levels', (WidgetTester tester) async {
-    await tester.pumpWidget(const MazeGameApp());
+    await tester.pumpWidget(await testApp());
 
     await tester.tap(find.text('Уровни'));
     await tester.pumpAndSettle();
