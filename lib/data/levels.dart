@@ -376,7 +376,7 @@ const List<MazeLevel> levels = [
         doors: [MazeDoor(color: Colors.purple, targetRoomId: 13)],
       ),
       MazeRoom(
-        id: 12,
+        id: 13,
         doors: [MazeDoor(color: Color(0xFFEF476F), targetRoomId: 1)],
       ),
       MazeRoom(id: 0, doors: []),
