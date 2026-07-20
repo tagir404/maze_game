@@ -16,6 +16,7 @@ Future<void> showWinDialog(
     barrierDismissible: false,
     builder: (context) => AppDialog(
       title: AppLocalizations.of(context).levelCompleted,
+      iconData: Icons.check,
       content: Text(
         AppLocalizations.of(context).winMessage(levelNumber, roomsCount),
       ),

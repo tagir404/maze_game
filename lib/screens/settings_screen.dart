@@ -32,65 +32,54 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
               const SizedBox(height: 12),
               Card(
-                child: Column(
-                  children: [
-                    RadioListTile<String>(
-                      title: Text(l10n.languageAuto),
-                      secondary: const Icon(Icons.language),
-                      value: 'auto',
-                      groupValue:
-                          settingsService.locale?.languageCode ?? 'auto',
-                      onChanged: (_) => settingsService.setLocale(null),
-                    ),
-                    RadioListTile<String>(
-                      title: Text(l10n.languageRussian),
-                      value: 'ru',
-                      groupValue:
-                          settingsService.locale?.languageCode ?? 'auto',
-                      onChanged: (_) =>
-                          settingsService.setLocale(const Locale('ru')),
-                    ),
-                    RadioListTile<String>(
-                      title: Text(l10n.languageEnglish),
-                      value: 'en',
-                      groupValue:
-                          settingsService.locale?.languageCode ?? 'auto',
-                      onChanged: (_) =>
-                          settingsService.setLocale(const Locale('en')),
-                    ),
-                  ],
+                child: RadioGroup<Locale>(
+                  groupValue: settingsService.locale ?? const Locale('auto'),
+                  onChanged: (value) => value?.languageCode == 'auto'
+                      ? settingsService.setLocale(null)
+                      : settingsService.setLocale(value),
+                  child: Column(
+                    children: [
+                      RadioListTile(
+                        title: Text(l10n.languageAuto),
+                        secondary: const Icon(Icons.language),
+                        value: const Locale('auto'),
+                      ),
+                      RadioListTile(
+                        title: Text(l10n.languageRussian),
+                        value: const Locale('ru'),
+                      ),
+                      RadioListTile(
+                        title: Text(l10n.languageEnglish),
+                        value: const Locale('en'),
+                      ),
+                    ],
+                  ),
                 ),
               ),
               const SizedBox(height: 12),
               Card(
-                child: Column(
-                  children: [
-                    RadioListTile<ThemeMode>(
-                      title: Text(l10n.themeSystem),
-                      secondary: const Icon(Icons.contrast),
-                      value: ThemeMode.system,
-                      groupValue: settingsService.themeMode,
-                      onChanged: (value) {
-                        if (value != null) settingsService.setThemeMode(value);
-                      },
-                    ),
-                    RadioListTile<ThemeMode>(
-                      title: Text(l10n.themeDark),
-                      value: ThemeMode.dark,
-                      groupValue: settingsService.themeMode,
-                      onChanged: (value) {
-                        if (value != null) settingsService.setThemeMode(value);
-                      },
-                    ),
-                    RadioListTile<ThemeMode>(
-                      title: Text(l10n.themeLight),
-                      value: ThemeMode.light,
-                      groupValue: settingsService.themeMode,
-                      onChanged: (value) {
-                        if (value != null) settingsService.setThemeMode(value);
-                      },
-                    ),
-                  ],
+                child: RadioGroup<ThemeMode>(
+                  groupValue: settingsService.themeMode,
+                  onChanged: (value) {
+                    if (value != null) settingsService.setThemeMode(value);
+                  },
+                  child: Column(
+                    children: [
+                      RadioListTile(
+                        title: Text(l10n.themeSystem),
+                        secondary: const Icon(Icons.contrast),
+                        value: ThemeMode.system,
+                      ),
+                      RadioListTile(
+                        title: Text(l10n.themeDark),
+                        value: ThemeMode.dark,
+                      ),
+                      RadioListTile(
+                        title: Text(l10n.themeLight),
+                        value: ThemeMode.light,
+                      ),
+                    ],
+                  ),
                 ),
               ),
               ListTile(

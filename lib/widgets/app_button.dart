@@ -21,9 +21,7 @@ class _MenuButtonState extends State<AppButton> {
 
   @override
   Widget build(BuildContext context) {
-    final color = Theme.of(
-      context,
-    ).colorScheme.surfaceContainerHighest.withValues(alpha: 0.7);
+    final color = Theme.of(context).colorScheme.surfaceContainerHighest;
 
     return GestureDetector(
       onTapDown: (_) => setState(() => _pressed = true),
@@ -35,7 +33,11 @@ class _MenuButtonState extends State<AppButton> {
         scale: _pressed ? 0.96 : 1,
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 90),
-          transform: Matrix4.translationValues(0, _pressed ? 3 : 0, 0),
+          transform: Matrix4.translationValues(
+            _pressed ? 4 : 0,
+            _pressed ? 6 : 0,
+            0,
+          ),
           padding: widget.padding,
           decoration: BoxDecoration(
             color: color,
@@ -44,7 +46,7 @@ class _MenuButtonState extends State<AppButton> {
               if (!_pressed)
                 BoxShadow(
                   color: Colors.black.withValues(alpha: 0.3),
-                  offset: const Offset(0, 6),
+                  offset: const Offset(4, 6),
                 ),
             ],
           ),

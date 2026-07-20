@@ -85,7 +85,9 @@ void main() {
     expect(find.textContaining('Ты нашёл выход'), findsOneWidget);
   });
 
-  testWidgets('levels screen lists available levels', (WidgetTester tester) async {
+  testWidgets('levels screen lists available levels', (
+    WidgetTester tester,
+  ) async {
     await tester.pumpWidget(await testApp());
 
     await tester.tap(find.text('Уровни'));

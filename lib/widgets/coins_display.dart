@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:maze_game/theme/app_colors.dart';
 
 class CoinsDisplay extends StatelessWidget {
   const CoinsDisplay({required this.quantity, super.key});
@@ -11,7 +12,7 @@ class CoinsDisplay extends StatelessWidget {
       spacing: 4,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const Icon(Icons.diamond, color: Color(0xFF8AFF8C)),
+        Icon(Icons.diamond, color: Theme.of(context).appColors.coins),
         Text(quantity.toString()),
       ],
     );

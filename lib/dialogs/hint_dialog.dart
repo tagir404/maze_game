@@ -23,11 +23,11 @@ class _HintDialogState extends State<_HintDialog> {
     await walletService.buyPack(pack);
     if (!mounted) return;
 
-    ScaffoldMessenger.of(
-      context,
-    ).showSnackBar(SnackBar(
-      content: Text(AppLocalizations.of(context).boughtCoins(pack.coins)),
-    ));
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(AppLocalizations.of(context).boughtCoins(pack.coins)),
+      ),
+    );
   }
 
   void _useHint() {
@@ -48,6 +48,7 @@ class _HintDialogState extends State<_HintDialog> {
     return AnimatedBuilder(
       animation: walletService,
       builder: (context, _) => AppDialog(
+        iconData: Icons.lightbulb,
         title: AppLocalizations.of(context).hint,
         content: Column(
           mainAxisSize: MainAxisSize.min,

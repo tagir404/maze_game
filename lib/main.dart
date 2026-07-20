@@ -9,6 +9,7 @@ import 'package:maze_game/services/audio_service.dart';
 import 'package:maze_game/services/progress_service.dart';
 import 'package:maze_game/services/settings_service.dart';
 import 'package:maze_game/services/wallet_service.dart';
+import 'package:maze_game/theme/app_colors.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 Future<void> main() async {
@@ -97,6 +98,10 @@ class MazeGameApp extends StatelessWidget {
             onSurface: Color(0xFF242018),
           );
 
+    final appColors = isDark
+        ? const AppColors(coins: Color(0xFF8AFF8C))
+        : const AppColors(coins: Color(0xFF30D133));
+
     return ThemeData(
       textTheme: GoogleFonts.unboundedTextTheme().apply(
         bodyColor: colors.onSurface,
@@ -104,6 +109,7 @@ class MazeGameApp extends StatelessWidget {
       ),
       colorScheme: colors,
       useMaterial3: true,
+      extensions: [appColors],
     );
   }
 }
