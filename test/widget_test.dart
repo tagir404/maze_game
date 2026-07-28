@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:maze_game/core/app_dependencies.dart';
+import 'package:maze_game/data/levels.dart';
+import 'package:maze_game/dialogs/win_dialog.dart';
+import 'package:maze_game/l10n/app_localizations.dart';
 import 'package:maze_game/main.dart';
 import 'package:maze_game/services/progress_service.dart';
 import 'package:maze_game/services/settings_service.dart';
+import 'package:maze_game/services/wallet_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 Future<Widget> testApp() async {
@@ -17,6 +22,31 @@ Future<Widget> testApp() async {
     progressService: ProgressService(prefs),
     settingsService: settingsService,
     child: MazeGameApp(settingsService: settingsService),
+  );
+}
+
+Future<Widget> dialogTestApp({required Widget child}) async {
+  SharedPreferences.setMockInitialValues({});
+  final prefs = await SharedPreferences.getInstance();
+  final settingsService = SettingsService(prefs);
+  await settingsService.load();
+  await settingsService.setLocale(const Locale('ru'));
+  walletService.resetForTesting();
+
+  return AppDependencies(
+    progressService: ProgressService(prefs),
+    settingsService: settingsService,
+    child: MaterialApp(
+      locale: const Locale('ru'),
+      supportedLocales: AppLocalizations.supportedLocales,
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
+      home: child,
+    ),
   );
 }
 
@@ -83,6 +113,38 @@ void main() {
 
     expect(find.text('Уровень пройден!'), findsOneWidget);
     expect(find.textContaining('Ты нашёл выход'), findsOneWidget);
+  });
+
+  testWidgets('next level button keeps premium levels locked', (
+    WidgetTester tester,
+  ) async {
+    await tester.pumpWidget(
+      await dialogTestApp(
+        child: Builder(
+          builder: (context) => Scaffold(
+            body: Center(
+              child: ElevatedButton(
+                onPressed: () => showWinDialog(
+                  context,
+                  levelNumber: 5,
+                  roomsCount: levels[4].rooms.length,
+                ),
+                child: const Text('Show win'),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+
+    await tester.tap(find.text('Show win'));
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.text('Следующий уровень'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Премиум уровень'), findsOneWidget);
+    expect(find.text('Уровень 6'), findsNothing);
   });
 
   testWidgets('levels screen lists available levels', (

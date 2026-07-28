@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:maze_game/data/levels.dart';
+import 'package:maze_game/dialogs/premium_purchase_dialog.dart';
 import 'package:maze_game/l10n/app_localizations.dart';
 import 'package:maze_game/screens/game_screen.dart';
+import 'package:maze_game/services/wallet_service.dart';
 import 'package:maze_game/widgets/app_dialog.dart';
 
 Future<void> showWinDialog(
@@ -10,6 +12,7 @@ Future<void> showWinDialog(
   required int roomsCount,
 }) {
   final hasNextLevel = levelNumber < levels.length;
+  final nextLevel = hasNextLevel ? levels[levelNumber] : null;
 
   return showDialog<void>(
     context: context,
@@ -28,12 +31,23 @@ Future<void> showWinDialog(
         ),
         if (hasNextLevel)
           FilledButton(
-            onPressed: () {
+            onPressed: () async {
+              final nextMazeLevel = nextLevel!;
+              final nextLevelRequiresPremium =
+                  nextMazeLevel.isPremium && !walletService.hasPremiumAccess;
+
+              if (nextLevelRequiresPremium) {
+                final premiumBought = await showPremiumRequiredDialog(context);
+                if (!context.mounted || premiumBought != true) return;
+              }
+
+              if (!context.mounted) return;
+
               Navigator.of(context).pop();
               Navigator.of(context).pushReplacement(
                 MaterialPageRoute<void>(
                   builder: (_) => GameScreen(
-                    level: levels[levelNumber],
+                    level: nextMazeLevel,
                     levelNumber: levelNumber + 1,
                   ),
                 ),
