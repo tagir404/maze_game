@@ -124,20 +124,20 @@ class _GameScreenState extends State<GameScreen> {
             animation: walletService,
             builder: (context, _) => Center(
               child: Padding(
-                padding: const EdgeInsets.only(left: 4),
+                padding: const .only(left: 4),
                 child: CoinsDisplay(quantity: walletService.coins),
               ),
             ),
           ),
         ],
-        actionsPadding: const EdgeInsets.only(right: 20),
+        actionsPadding: const .only(right: 20),
       ),
       body: SafeArea(
         child: Column(
           children: [
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 18),
+                padding: const .symmetric(horizontal: 18),
                 child: LayoutBuilder(
                   builder: (context, constraints) {
                     return Stack(
@@ -166,7 +166,7 @@ class _GameScreenState extends State<GameScreen> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 18),
+              padding: const .symmetric(vertical: 20, horizontal: 18),
               child: Row(
                 children: [
                   ControlButton(

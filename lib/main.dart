@@ -23,7 +23,7 @@ Future<void> main() async {
   await settingsService.load();
   await walletService.init(prefs);
 
-  await SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+  await SystemChrome.setEnabledSystemUIMode(.immersiveSticky);
 
   await SystemChrome.setPreferredOrientations(const [
     DeviceOrientation.landscapeLeft,
@@ -61,15 +61,15 @@ class MazeGameApp extends StatelessWidget {
           GlobalWidgetsLocalizations.delegate,
         ],
         themeMode: settingsService.themeMode,
-        theme: _buildTheme(Brightness.light),
-        darkTheme: _buildTheme(Brightness.dark),
+        theme: _buildTheme(.light),
+        darkTheme: _buildTheme(.dark),
         home: const MainMenuScreen(),
       ),
     );
   }
 
   ThemeData _buildTheme(Brightness brightness) {
-    final isDark = brightness == Brightness.dark;
+    final isDark = brightness == .dark;
     final colors = isDark
         ? const ColorScheme.dark(
             primary: Color(0xFFF3BF45),

@@ -29,9 +29,7 @@ class Door extends StatelessWidget {
               height: Constants.doorHeight,
               decoration: BoxDecoration(
                 color: door.color,
-                borderRadius: const BorderRadius.vertical(
-                  top: Radius.circular(18),
-                ),
+                borderRadius: const .vertical(top: .circular(18)),
 
                 border: Border(
                   top: BorderSide(
@@ -61,9 +59,9 @@ class Door extends StatelessWidget {
 
               child: isHint
                   ? Align(
-                      alignment: Alignment.topCenter,
+                      alignment: .topCenter,
                       child: Padding(
-                        padding: const EdgeInsets.only(top: 6),
+                        padding: const .only(top: 6),
                         child: Icon(
                           Icons.arrow_drop_down,
                           color: Colors.yellow.withValues(alpha: 0.9),

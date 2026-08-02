@@ -17,9 +17,9 @@ class MenuButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppButton(
       onPressed: onPressed,
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
+      padding: const .symmetric(horizontal: 12, vertical: 16),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: .center,
         spacing: 10,
         children: [
           Icon(icon, color: Theme.of(context).colorScheme.onSurface),

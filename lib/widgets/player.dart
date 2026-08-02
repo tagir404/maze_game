@@ -9,15 +9,15 @@ class Player extends StatelessWidget {
     final size = Constants.playerSize;
 
     return Column(
-      mainAxisSize: MainAxisSize.min,
+      mainAxisSize: .min,
       children: [
         Container(
           width: size,
           height: size,
           decoration: BoxDecoration(
             color: const Color(0xFFFFD2A6),
-            borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: Colors.brown, width: 2),
+            borderRadius: .circular(8),
+            border: .all(color: Colors.brown, width: 2),
           ),
           child: const Stack(
             children: [
@@ -44,10 +44,7 @@ class _Eye extends StatelessWidget {
     return Container(
       width: 6,
       height: 6,
-      decoration: const BoxDecoration(
-        color: Colors.black,
-        shape: BoxShape.circle,
-      ),
+      decoration: const BoxDecoration(color: Colors.black, shape: .circle),
     );
   }
 }

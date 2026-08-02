@@ -50,7 +50,7 @@ class _PremiumPurchaseDialog extends StatelessWidget {
                     Expanded(
                       child: Card(
                         child: Padding(
-                          padding: const EdgeInsets.all(8),
+                          padding: const .all(8),
                           child: Column(
                             spacing: 8,
                             children: [

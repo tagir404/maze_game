@@ -51,8 +51,8 @@ class _HintDialogState extends State<_HintDialog> {
         iconData: Icons.lightbulb,
         title: AppLocalizations.of(context).hint,
         content: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisSize: .min,
+          crossAxisAlignment: .stretch,
           children: [
             Row(
               spacing: 4,
@@ -79,7 +79,7 @@ class _HintDialogState extends State<_HintDialog> {
                     Expanded(
                       child: Card(
                         child: Padding(
-                          padding: const EdgeInsetsGeometry.all(8),
+                          padding: const .all(8),
                           child: Column(
                             spacing: 8,
                             children: [

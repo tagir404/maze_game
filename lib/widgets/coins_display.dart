@@ -10,10 +10,10 @@ class CoinsDisplay extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       spacing: 4,
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: .center,
       children: [
         Icon(Icons.diamond, color: Theme.of(context).appColors.coins),
-        Text(quantity.toString()),
+        Text(quantity.toString(), style: const TextStyle(fontWeight: .bold)),
       ],
     );
   }

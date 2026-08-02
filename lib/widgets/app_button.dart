@@ -41,7 +41,7 @@ class _MenuButtonState extends State<AppButton> {
           padding: widget.padding,
           decoration: BoxDecoration(
             color: color,
-            borderRadius: BorderRadius.circular(18),
+            borderRadius: .circular(18),
             boxShadow: [
               if (!_pressed)
                 BoxShadow(

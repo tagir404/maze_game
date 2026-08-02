@@ -22,11 +22,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
         appBar: AppBar(title: Text(l10n.settings)),
         body: SafeArea(
           child: ListView(
-            padding: const EdgeInsets.all(24),
+            padding: const .all(24),
             children: [
               Card(
                 child: Padding(
-                  padding: const EdgeInsets.all(18),
+                  padding: const .all(18),
                   child: Text(l10n.controlsDescription),
                 ),
               ),

@@ -27,11 +27,11 @@ class MainMenuScreen extends StatelessWidget {
             child: ConstrainedBox(
               constraints: const BoxConstraints(maxWidth: 360),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: .center,
                 children: [
                   Text(
                     l10n.appTitle,
-                    textAlign: TextAlign.center,
+                    textAlign: .center,
                     style: Theme.of(context).textTheme.displaySmall,
                   ),
                   const SizedBox(height: 20),

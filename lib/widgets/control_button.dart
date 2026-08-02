@@ -12,11 +12,11 @@ class ControlButton extends StatelessWidget {
       onPressed: onPressed,
       icon: Icon(icon, size: 28),
       style: IconButton.styleFrom(
-        padding: const EdgeInsets.all(16),
+        padding: const .all(16),
         backgroundColor: Theme.of(
           context,
         ).colorScheme.surfaceContainerHighest.withValues(alpha: 0.6),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+        shape: RoundedRectangleBorder(borderRadius: .circular(18)),
       ),
     );
   }

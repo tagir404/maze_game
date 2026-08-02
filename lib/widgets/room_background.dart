@@ -7,11 +7,11 @@ class RoomBackground extends StatelessWidget {
   Widget build(BuildContext context) {
     return const DecoratedBox(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(18)),
+        borderRadius: .all(.circular(18)),
         gradient: LinearGradient(
           colors: [Color(0xFF29345E), Color(0xFF15192E)],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
+          begin: .topLeft,
+          end: .bottomRight,
         ),
       ),
     );

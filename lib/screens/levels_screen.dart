@@ -40,23 +40,23 @@ class LevelsScreen extends StatelessWidget {
                     size: 24,
                     color: Theme.of(context).colorScheme.primary,
                   ),
-                  iconAlignment: IconAlignment.end,
+                  iconAlignment: .end,
                   style: TextButton.styleFrom(
                     foregroundColor: Theme.of(context).colorScheme.onSurface,
                   ),
                 ),
               Center(
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 4),
+                  padding: const .only(left: 4),
                   child: CoinsDisplay(quantity: walletService.coins),
                 ),
               ),
             ],
-            actionsPadding: const EdgeInsets.only(right: 20),
+            actionsPadding: const .only(right: 20),
           ),
           body: SafeArea(
             child: GridView.builder(
-              padding: const EdgeInsets.all(16),
+              padding: const .all(16),
               itemCount: levels.length,
               gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
                 maxCrossAxisExtent: 80,
@@ -132,9 +132,9 @@ class _PremiumAccessActiveBadge extends StatelessWidget {
   Widget build(BuildContext context) {
     return IgnorePointer(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8),
+        padding: const .symmetric(horizontal: 8),
         child: Row(
-          mainAxisSize: MainAxisSize.min,
+          mainAxisSize: .min,
           children: [
             Text(AppLocalizations.of(context).premiumAccessActive),
             const SizedBox(width: 8),
