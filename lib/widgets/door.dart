@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:maze_game/common/constants.dart';
+import 'package:maze_game/core/app_dependencies.dart';
+import 'package:maze_game/enums/difficulty.dart';
 import 'package:maze_game/models/maze_door.dart';
 
 class Door extends StatelessWidget {
@@ -28,7 +30,11 @@ class Door extends StatelessWidget {
               width: Constants.doorWidth,
               height: Constants.doorHeight,
               decoration: BoxDecoration(
-                color: door.color,
+                color:
+                    AppDependencies.of(context).settingsService.difficulty ==
+                        Difficulty.normal
+                    ? door.color
+                    : Theme.of(context).colorScheme.primary,
                 borderRadius: const .vertical(top: .circular(18)),
 
                 border: Border(

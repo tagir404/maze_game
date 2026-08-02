@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:maze_game/core/app_dependencies.dart';
+import 'package:maze_game/enums/difficulty.dart';
 import 'package:maze_game/l10n/app_localizations.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -41,6 +42,28 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
               const SizedBox(height: 12),
               Card(
+                child: RadioGroup<Difficulty>(
+                  groupValue: settingsService.difficulty,
+                  onChanged: (value) {
+                    if (value != null) settingsService.setDifficulty(value);
+                  },
+                  child: Column(
+                    children: [
+                      RadioListTile<Difficulty>(
+                        secondary: const Icon(Icons.speed),
+                        title: Text(l10n.difficultyNormal),
+                        value: .normal,
+                      ),
+                      RadioListTile<Difficulty>(
+                        title: Text(l10n.difficultyHard),
+                        value: .hard,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(height: 12),
+              Card(
                 child: RadioGroup<Locale>(
                   groupValue: settingsService.locale ?? const Locale('auto'),
                   onChanged: (value) => value?.languageCode == 'auto'
@@ -74,18 +97,18 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   },
                   child: Column(
                     children: [
-                      RadioListTile(
+                      RadioListTile<ThemeMode>(
                         title: Text(l10n.themeSystem),
                         secondary: const Icon(Icons.contrast),
-                        value: ThemeMode.system,
+                        value: .system,
                       ),
-                      RadioListTile(
+                      RadioListTile<ThemeMode>(
                         title: Text(l10n.themeDark),
-                        value: ThemeMode.dark,
+                        value: .dark,
                       ),
-                      RadioListTile(
+                      RadioListTile<ThemeMode>(
                         title: Text(l10n.themeLight),
-                        value: ThemeMode.light,
+                        value: .light,
                       ),
                     ],
                   ),

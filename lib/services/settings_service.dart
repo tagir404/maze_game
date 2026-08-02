@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:maze_game/enums/difficulty.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsService extends ChangeNotifier {
@@ -6,16 +7,20 @@ class SettingsService extends ChangeNotifier {
 
   static const _localeKey = 'locale_code';
   static const _themeModeKey = 'theme_mode';
+  static const _sfxKey = 'sfx';
+  static const _difficultyKey = 'difficulty';
 
   final SharedPreferences? _prefs;
 
   Locale? _locale;
   ThemeMode _themeMode = ThemeMode.system;
   bool _soundEnabled = true;
+  Difficulty _difficulty = Difficulty.normal;
 
   Locale? get locale => _locale;
   ThemeMode get themeMode => _themeMode;
   bool get soundEnabled => _soundEnabled;
+  Difficulty get difficulty => _difficulty;
 
   Future<void> load() async {
     final localeCode = _prefs?.getString(_localeKey);
@@ -29,7 +34,7 @@ class SettingsService extends ChangeNotifier {
       orElse: () => ThemeMode.system,
     );
 
-    _soundEnabled = _prefs?.getBool('soundEnabled') ?? true;
+    _soundEnabled = _prefs?.getBool(_sfxKey) ?? true;
   }
 
   Future<void> setLocale(Locale? locale) async {
@@ -49,12 +54,14 @@ class SettingsService extends ChangeNotifier {
   }
 
   Future<void> setSoundEnabled(bool value) async {
-    if (_soundEnabled == value) return;
-
     _soundEnabled = value;
+    await _prefs?.setBool(_sfxKey, value);
+    notifyListeners();
+  }
 
-    await _prefs?.setBool('soundEnabled', value);
-
+  Future<void> setDifficulty(Difficulty value) async {
+    _difficulty = value;
+    await _prefs?.setString(_difficultyKey, value.name);
     notifyListeners();
   }
 }

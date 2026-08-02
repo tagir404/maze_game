@@ -85,6 +85,8 @@ class AppLocalizations {
   String get close => _isRu ? 'Закрыть' : 'Close';
   String get free => _isRu ? 'Бесплатно' : 'Free';
   String get soundEffects => _isRu ? 'Звуковые эффекты' : 'Sound effects';
+  String get difficultyNormal => _isRu ? 'Обычная' : 'Normal';
+  String get difficultyHard => _isRu ? 'Сложная' : 'Hard';
 }
 
 class _AppLocalizationsDelegate
