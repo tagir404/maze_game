@@ -7,7 +7,6 @@ import 'package:maze_game/logic/maze_path_finder.dart';
 import 'package:maze_game/models/maze_door.dart';
 import 'package:maze_game/models/maze_level.dart';
 import 'package:maze_game/models/maze_room.dart';
-import 'package:maze_game/services/audio_service.dart';
 import 'package:maze_game/services/wallet_service.dart';
 import 'package:maze_game/widgets/coins_display.dart';
 import 'package:maze_game/widgets/room_background.dart';
@@ -55,7 +54,7 @@ class _GameScreenState extends State<GameScreen> {
     final door = selectedDoor;
     if (door == null) return;
 
-    audioService.playDoorOpen();
+    AppDependencies.of(context).audioService.playDoorOpen();
 
     setState(() {
       roomId = door.targetRoomId;

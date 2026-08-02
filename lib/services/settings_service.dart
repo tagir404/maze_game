@@ -11,9 +11,11 @@ class SettingsService extends ChangeNotifier {
 
   Locale? _locale;
   ThemeMode _themeMode = ThemeMode.system;
+  bool _soundEnabled = true;
 
   Locale? get locale => _locale;
   ThemeMode get themeMode => _themeMode;
+  bool get soundEnabled => _soundEnabled;
 
   Future<void> load() async {
     final localeCode = _prefs?.getString(_localeKey);
@@ -26,6 +28,8 @@ class SettingsService extends ChangeNotifier {
       (mode) => mode.name == themeModeName,
       orElse: () => ThemeMode.system,
     );
+
+    _soundEnabled = _prefs?.getBool('soundEnabled') ?? true;
   }
 
   Future<void> setLocale(Locale? locale) async {
@@ -41,6 +45,16 @@ class SettingsService extends ChangeNotifier {
   Future<void> setThemeMode(ThemeMode themeMode) async {
     _themeMode = themeMode;
     await _prefs?.setString(_themeModeKey, themeMode.name);
+    notifyListeners();
+  }
+
+  Future<void> setSoundEnabled(bool value) async {
+    if (_soundEnabled == value) return;
+
+    _soundEnabled = value;
+
+    await _prefs?.setBool('soundEnabled', value);
+
     notifyListeners();
   }
 }

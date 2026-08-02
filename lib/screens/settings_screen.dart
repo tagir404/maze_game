@@ -32,6 +32,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
               const SizedBox(height: 12),
               Card(
+                child: SwitchListTile(
+                  secondary: const Icon(Icons.volume_up),
+                  title: Text(l10n.soundEffects),
+                  value: settingsService.soundEnabled,
+                  onChanged: settingsService.setSoundEnabled,
+                ),
+              ),
+              const SizedBox(height: 12),
+              Card(
                 child: RadioGroup<Locale>(
                   groupValue: settingsService.locale ?? const Locale('auto'),
                   onChanged: (value) => value?.languageCode == 'auto'

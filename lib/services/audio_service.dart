@@ -1,8 +1,11 @@
 import 'package:flutter_soloud/flutter_soloud.dart';
-
-final audioService = AudioService();
+import 'package:maze_game/services/settings_service.dart';
 
 class AudioService {
+  AudioService(this.settingsService);
+
+  final SettingsService settingsService;
+
   late final AudioSource doorOpen;
 
   Future<void> init() async {
@@ -12,6 +15,8 @@ class AudioService {
   }
 
   void playDoorOpen() {
+    if (!settingsService.soundEnabled) return;
+
     SoLoud.instance.play(doorOpen);
   }
 }

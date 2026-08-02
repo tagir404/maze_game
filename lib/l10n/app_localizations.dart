@@ -69,8 +69,7 @@ class AppLocalizations {
   String get notEnoughCoinsForHint => _isRu
       ? 'Недостаточно монет для подсказки'
       : 'Not enough coins for a hint';
-  String get hintCost =>
-      _isRu ? 'Стоимость подсказки: ' : 'Hint cost: ';
+  String get hintCost => _isRu ? 'Стоимость подсказки: ' : 'Hint cost: ';
   String get cancel => _isRu ? 'Отмена' : 'Cancel';
   String get takeHint => _isRu ? 'Взять подсказку' : 'Take hint';
   String get levelCompleted => _isRu ? 'Уровень пройден!' : 'Level complete!';
@@ -85,6 +84,7 @@ class AppLocalizations {
       : 'This level becomes available after completing previous levels';
   String get close => _isRu ? 'Закрыть' : 'Close';
   String get free => _isRu ? 'Бесплатно' : 'Free';
+  String get soundEffects => _isRu ? 'Звуковые эффекты' : 'Sound effects';
 }
 
 class _AppLocalizationsDelegate
@@ -92,8 +92,7 @@ class _AppLocalizationsDelegate
   const _AppLocalizationsDelegate();
 
   @override
-  bool isSupported(Locale locale) =>
-      ['en', 'ru'].contains(locale.languageCode);
+  bool isSupported(Locale locale) => ['en', 'ru'].contains(locale.languageCode);
 
   @override
   Future<AppLocalizations> load(Locale locale) async {

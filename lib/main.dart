@@ -15,11 +15,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await audioService.init();
-
   final prefs = await SharedPreferences.getInstance();
   final progressService = ProgressService(prefs);
   final settingsService = SettingsService(prefs);
+  final auidioService = AudioService(settingsService);
+
+  await auidioService.init();
   await settingsService.load();
   await walletService.init(prefs);
 
@@ -33,6 +34,7 @@ Future<void> main() async {
     AppDependencies(
       progressService: progressService,
       settingsService: settingsService,
+      audioService: auidioService,
       child: MazeGameApp(settingsService: settingsService),
     ),
   );
@@ -69,7 +71,7 @@ class MazeGameApp extends StatelessWidget {
   }
 
   ThemeData _buildTheme(Brightness brightness) {
-    final isDark = brightness == .dark;
+    final isDark = brightness == Brightness.dark;
     final colors = isDark
         ? const ColorScheme.dark(
             primary: Color(0xFFF3BF45),

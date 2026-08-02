@@ -6,6 +6,7 @@ import 'package:maze_game/data/levels.dart';
 import 'package:maze_game/dialogs/win_dialog.dart';
 import 'package:maze_game/l10n/app_localizations.dart';
 import 'package:maze_game/main.dart';
+import 'package:maze_game/services/audio_service.dart';
 import 'package:maze_game/services/progress_service.dart';
 import 'package:maze_game/services/settings_service.dart';
 import 'package:maze_game/services/wallet_service.dart';
@@ -15,12 +16,15 @@ Future<Widget> testApp() async {
   SharedPreferences.setMockInitialValues({});
   final prefs = await SharedPreferences.getInstance();
   final settingsService = SettingsService(prefs);
+  final audioService = AudioService(settingsService);
+  await audioService.init();
   await settingsService.load();
   await settingsService.setLocale(const Locale('ru'));
 
   return AppDependencies(
     progressService: ProgressService(prefs),
     settingsService: settingsService,
+    audioService: audioService,
     child: MazeGameApp(settingsService: settingsService),
   );
 }
@@ -29,6 +33,8 @@ Future<Widget> dialogTestApp({required Widget child}) async {
   SharedPreferences.setMockInitialValues({});
   final prefs = await SharedPreferences.getInstance();
   final settingsService = SettingsService(prefs);
+  final audioService = AudioService(settingsService);
+  await audioService.init();
   await settingsService.load();
   await settingsService.setLocale(const Locale('ru'));
   walletService.resetForTesting();
@@ -36,6 +42,7 @@ Future<Widget> dialogTestApp({required Widget child}) async {
   return AppDependencies(
     progressService: ProgressService(prefs),
     settingsService: settingsService,
+    audioService: audioService,
     child: MaterialApp(
       locale: const Locale('ru'),
       supportedLocales: AppLocalizations.supportedLocales,
